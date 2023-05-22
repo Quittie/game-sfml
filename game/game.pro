@@ -4,7 +4,8 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        moveable.cpp
         grass.png
         wall.png
         red.png
@@ -16,3 +17,6 @@ CONFIG(debug, debug|release){
 } else {
     LIBS += -lsfml-audio -lsfml-graphics -lsfml-network -lsfml-system -lsfml-window
 }
+
+HEADERS += \
+    moveable.h
