@@ -4,8 +4,10 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        immoveable.cpp \
         main.cpp \
-        moveable.cpp
+        moveable.cpp \
+        static.cpp
         grass.png
         wall.png
         red.png
@@ -19,4 +21,6 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
-    moveable.h
+    immoveable.h \
+    moveable.h \
+    static.h
