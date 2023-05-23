@@ -1,7 +1,10 @@
 
 #include "immoveable.h"
 
-immoveable::immoveable(const std::vector<int> &position, const std::vector<int> &size)
+#include <iostream>
+#include <vector>
+
+Immoveable::Immoveable(const std::vector<float> &position, const std::vector<float> &size)
 {
     if(position.size()==3)
     {

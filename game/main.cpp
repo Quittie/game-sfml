@@ -6,6 +6,6 @@ using namespace std;
 
 int main()
 {
-    cout << "adadsadasda!" << endl;
+    cout << "dupa mnie swedzi" << endl;
     return 0;
 }
