@@ -5,5 +5,5 @@ using namespace std;
 
 int main()
 {
-    cout << "siemka" << endl;
+    cout << "dupa" << endl;
 }
