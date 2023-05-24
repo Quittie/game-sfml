@@ -11,8 +11,9 @@
 
 class Moveable : public sf::Sprite
 {
-protected:
+public:
     Moveable(const std::vector<float> &position, const std::vector<float> &size);
+protected:
     virtual bool checkBounds();
     std::vector<float> position_;
     std::vector<float> size_;

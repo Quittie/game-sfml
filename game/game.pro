@@ -9,7 +9,6 @@ SOURCES += \
         immoveable.cpp \
         main.cpp \
         moveable.cpp \
-        static.cpp
         grass.png
         wall.png
         red.png
@@ -27,4 +26,4 @@ HEADERS += \
     hud.h \
     immoveable.h \
     moveable.h \
-    static.h
+

@@ -2,10 +2,24 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-using namespace std;
+#include <vector>
+#include <iostream>
+#include <string>
+
+#include "moveable.h"
+#include "game.h"
+
 
 int main()
 {
-    cout << "dupa mnie swedzi" << endl;
+    std::vector<float> vec = {23, 234, 23};
+    std::vector<float> vec2 = {23, 234, 23};
+    Moveable test(vec, vec2);
+
+    Moveable test2(vec, vec2);
+    Game game;
+    game.add(test);
+
+
     return 0;
 }
