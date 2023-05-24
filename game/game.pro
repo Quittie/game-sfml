@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        game.cpp \
         hud.cpp \
         immoveable.cpp \
         main.cpp \
@@ -22,6 +23,7 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
+    game.h \
     hud.h \
     immoveable.h \
     moveable.h \
