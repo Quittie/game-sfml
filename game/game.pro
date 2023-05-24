@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        hud.cpp \
         immoveable.cpp \
         main.cpp \
         moveable.cpp \
@@ -21,6 +22,7 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
+    hud.h \
     immoveable.h \
     moveable.h \
     static.h
