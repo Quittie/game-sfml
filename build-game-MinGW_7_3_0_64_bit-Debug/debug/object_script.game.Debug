@@ -1,0 +1,11 @@
+debug/game.o
+debug/hud.o
+debug/immoveable.o
+debug/main.o
+debug/moveable.o
+debug/grass.o
+debug/wall.o
+debug/red.o
+debug/INCLUDEPATH.o
+debug/+=.o
+debug/include.o

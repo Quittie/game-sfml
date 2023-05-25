@@ -8,13 +8,11 @@ SOURCES += \
         hud.cpp \
         immoveable.cpp \
         main.cpp \
-        moveable.cpp \
-        grass.png
-        wall.png
-        red.png
-#RESOURCES += grass.qrc
+        moveable.cpp
+
 INCLUDEPATH += "C:/SFML/SFML-2.5.1/include"
 LIBS += -L"C:/SFML/SFML-2.5.1/lib"
+
 CONFIG(debug, debug|release){
     LIBS += -lsfml-audio-d -lsfml-graphics-d -lsfml-network-d -lsfml-system-d -lsfml-window-d
 } else {
@@ -25,5 +23,4 @@ HEADERS += \
     game.h \
     hud.h \
     immoveable.h \
-    moveable.h \
-
+    moveable.h

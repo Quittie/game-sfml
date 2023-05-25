@@ -1,0 +1,11 @@
+release/game.o
+release/hud.o
+release/immoveable.o
+release/main.o
+release/moveable.o
+release/grass.o
+release/wall.o
+release/red.o
+release/INCLUDEPATH.o
+release/+=.o
+release/include.o
