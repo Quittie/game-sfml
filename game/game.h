@@ -7,19 +7,20 @@
 
 #include <iostream>
 #include <vector>
+#include "barricadem.h"
 
 
-class Game:public sf::Sprite
+class Game
 {
 public:
     Game();
     void start();
     void stop();
-    void add(const sf::Sprite &object);
-    sf::Sprite get(int number);
+    void add(const BarricadeM &object);
+    BarricadeM get(int number);
 
 private:
-    std::vector<sf::Sprite> _object;
+    std::vector<BarricadeM> _object;
     sf::Clock _clock;
     sf::Time _frameTime;
 };

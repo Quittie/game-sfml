@@ -6,20 +6,21 @@
 
 #include <iostream>
 #include <vector>
+#include "barricadem.h"
 
 Game::Game()
 {
 
 }
-void Game::add(const sf::Sprite &object)
+void Game::add(const BarricadeM &object)
 {
     _object.push_back(object);
     std::cout << "Added successfully!" << std::endl;
 }
-sf::Sprite Game::get(int number)
-{
-    return _object[number];
-}
+//sf::Sprite Game::get(int number)
+//{
+//    return _object[number];
+//}
 
 void Game::start()
 {
@@ -35,8 +36,15 @@ void Game::start()
                 window.close();
         }
 
+
+
         // clear the window with black color
         window.clear(sf::Color::Black);
+
+        for(auto &o : _object)
+        {
+            window.draw(o.getRectangleShape());
+        }
 
 
         // end the current frame

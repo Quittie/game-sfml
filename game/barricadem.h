@@ -14,10 +14,12 @@ public:
     void displayColour();
     void moveBarricade();
     void setColour(const std::vector<float> &color);
+    void setColBar();
     virtual bool checkBounds();
+    sf::RectangleShape& getRectangleShape();
 protected:
+    sf::RectangleShape _rectangleG;
     std::vector<float> _colour;
-
 };
 
 #endif // BARRICADEM_H

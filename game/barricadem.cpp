@@ -33,20 +33,20 @@ BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<flo
     {
         std::cout << "Enter proper values" << std::endl;
     }
-    _rectangleG.setPosition(sf::Vector2f(_position[0], _position[1]));
-    _rectangleG.setSize(sf::Vector2f(_size[0], _size[1]));
+    _rectangleG.setPosition(sf::Vector2f(position[0], position[1]));
+    _rectangleG.setSize(sf::Vector2f(size[0], size[1]));
+    _rectangleG.setFillColor(sf::Color(colour[0], colour[1], colour[2]));
 
 }
 
 void BarricadeM::setColour(const std::vector<float> &colour)
 {
     _colour = colour;
+    _rectangleG.setFillColor(sf::Color(_colour[0], _colour[1], _colour[2]));
 }
-
-void BarricadeM::setColBar()
-{
-    _rectangleG.setFillColor(sf::Color::Green);
-}
-
 
 bool BarricadeM::checkBounds(){return true;};
+
+sf::RectangleShape& BarricadeM::getRectangleShape() {
+    return _rectangleG;
+}
