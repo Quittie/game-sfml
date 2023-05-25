@@ -5,7 +5,7 @@
 
 Moveable::Moveable(const std::vector<float> &position, const std::vector<float> &size)
 {
-    if(position.size()==3)
+    if(position.size()==2)
     {
         position_ = position;
     }
@@ -14,7 +14,7 @@ Moveable::Moveable(const std::vector<float> &position, const std::vector<float> 
         std::cout << "Enter proper values" << std::endl;
     }
 
-    if(size.size()==3)
+    if(size.size()==2)
     {
         size_ = size;
     }

@@ -44,3 +44,8 @@ void Game::start()
     }
 
 }
+
+void Game::stop()
+{
+
+}

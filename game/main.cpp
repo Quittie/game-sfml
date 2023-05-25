@@ -12,18 +12,18 @@
 
 
 
-int main()
-{   
-    std::vector<float> vec = {23, 234, 23};
-    std::vector<float> vec2 = {23, 234, 23};
+//int main()
+//{
+//    std::vector<float> vec = {23, 234, 23};
+//    std::vector<float> vec2 = {23, 234, 23};
 
-    Game game;
+//    Game game;
 
-    game.start();
+//    game.start();
 
 
-    return 0;
-}
+//    return 0;
+//}
 
 
 #include <SFML/Window.hpp>

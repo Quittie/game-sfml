@@ -14,6 +14,7 @@ public:
     void displayColour();
     void moveBarricade();
     void setColour(const std::vector<float> &color);
+    virtual bool checkBounds();
 protected:
     std::vector<float> _colour;
 
