@@ -8,17 +8,18 @@
 
 #include "moveable.h"
 #include "game.h"
+#include "barricadem.h"
+
 
 
 int main()
-{
+{   
     std::vector<float> vec = {23, 234, 23};
     std::vector<float> vec2 = {23, 234, 23};
-    Moveable test(vec, vec2);
 
-    Moveable test2(vec, vec2);
     Game game;
-    game.add(test);
+
+    game.start();
 
 
     return 0;

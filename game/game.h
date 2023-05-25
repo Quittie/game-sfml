@@ -13,6 +13,7 @@ class Game:public sf::Sprite
 {
 public:
     Game();
+    void start();
     void add(const sf::Sprite &object);
     sf::Sprite get(int number);
 private:

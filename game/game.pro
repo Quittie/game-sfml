@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        barricadem.cpp \
         game.cpp \
         hud.cpp \
         immoveable.cpp \
@@ -20,6 +21,7 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
+    barricadem.h \
     game.h \
     hud.h \
     immoveable.h \
