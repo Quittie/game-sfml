@@ -17,6 +17,7 @@ public:
     Game();
     virtual ~Game();
     void add(const BarricadeM &object);
+    bool isWindowOpen();
     void updating();
     void rendering();
     BarricadeM get(int number);
