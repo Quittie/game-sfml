@@ -16,24 +16,29 @@ int main()
 {
     Game game;
 
-    std::vector<float> position { 100.0f, 100.0f };
-    std::vector<float> size { 50.0f, 50.0f };
-    std::vector<float> colour { 255.0f, 0.0f, 0.0f };
-
-    std::vector<float> position1 { 739.0f, 452.0f };
-    std::vector<float> size1 { 569.0f, 1000.0f };
-    std::vector<float> colour1 { 65.0f, 186.6f, 172.0f };
-    BarricadeM barricade(position, size, colour);
-    BarricadeM barricade1(position1, size1, colour1);
-
-    game.add(barricade);
-    game.add(barricade1);
-    game.start();
-
-
+    while(game.isWindowOpen())
+    {
+//        while(game->window.poll)
+        game.updating();
+        game.rendering();
+    }
     return 0;
 }
 
+
+//    std::vector<float> position { 100.0f, 100.0f };
+//    std::vector<float> size { 50.0f, 50.0f };
+//    std::vector<float> colour { 255.0f, 0.0f, 0.0f };
+
+//    std::vector<float> position1 { 739.0f, 452.0f };
+//    std::vector<float> size1 { 569.0f, 1000.0f };
+//    std::vector<float> colour1 { 65.0f, 186.6f, 172.0f };
+//    BarricadeM barricade(position, size, colour);
+//    BarricadeM barricade1(position1, size1, colour1);
+
+//    game.add(barricade);
+//    game.add(barricade1);
+//    game.start();
 
 //#include <SFML/Window.hpp>
 //#include <SFML/Graphics.hpp>

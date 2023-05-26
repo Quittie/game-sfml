@@ -8,9 +8,19 @@
 #include <vector>
 #include "barricadem.h"
 
+
+
 Game::Game()
 {
+    std::cout << "Let's start the game!" << std::endl;
+    this->variablesInit();
+    this->windowInit();
 
+}
+
+Game::~Game()
+{
+    delete this->window;
 }
 void Game::add(const BarricadeM &object)
 {
@@ -82,6 +92,7 @@ void Game::updating()
             break;
         case sf::Event::Closed:
             this->window->close();
+            break;
 
         }
     }
