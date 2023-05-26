@@ -12,7 +12,7 @@ class BarricadeM : public Moveable
 public:
     BarricadeM(const std::vector<float> &position, const std::vector<float> &size, const std::vector<float> &colour);
     void displayColour();
-    void moveBarricade();
+    void moveBarricade(sf::Window window);
     void setColour(const std::vector<float> &color);
     void setColBar();
     virtual bool checkBounds();

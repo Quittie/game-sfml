@@ -50,3 +50,18 @@ bool BarricadeM::checkBounds(){return true;};
 sf::RectangleShape& BarricadeM::getRectangleShape() {
     return _rectangleG;
 }
+
+void BarricadeM::moveBarricade(sf::Window window)
+{
+    sf::Event ev;
+    while (window.pollEvent(ev))
+    {
+        if (ev.type == sf::Event::KeyPressed)
+        {
+            if (ev.key.code == sf::Keyboard::Up)
+            {
+                std::cout << "dupa" << std::endl;
+            }
+        }
+    }
+}

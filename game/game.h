@@ -16,6 +16,7 @@ public:
     Game();
     void start();
     void stop();
+    const bool isWindowOpen() const;
     void add(const BarricadeM &object);
     BarricadeM get(int number);
 
