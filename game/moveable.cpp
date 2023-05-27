@@ -7,7 +7,7 @@ Moveable::Moveable(const std::vector<float> &position, const std::vector<float> 
 {
     if(position.size()==2)
     {
-        position_ = position;
+        _position = position;
     }
     else
     {
@@ -16,7 +16,7 @@ Moveable::Moveable(const std::vector<float> &position, const std::vector<float> 
 
     if(size.size()==2)
     {
-        size_ = size;
+        _size = size;
     }
     else
     {

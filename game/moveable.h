@@ -15,9 +15,9 @@ public:
     Moveable(const std::vector<float> &position, const std::vector<float> &size);
     virtual bool checkBounds() = 0;
 protected:
-    std::vector<float> position_;
-    std::vector<float> size_;
-    sf::FloatRect bounds_;
+    std::vector<float> _position;
+    std::vector<float> _size;
+    sf::FloatRect _bounds;
 };
 
 #endif // MOVEABLE_H

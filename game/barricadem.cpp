@@ -1,15 +1,15 @@
-
 #include "barricadem.h"
 #include "moveable.h"
+#include "game.h"
 
 #include <vector>
 
-BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<float> &size, const std::vector<float> &colour):
+BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<float> &size, const std::vector<float> &colour, float speed):
     Moveable(position, size)
 {
     if(position.size()==2)
     {
-        position_ = position;
+        _position = position;
     }
     else
     {
@@ -18,7 +18,7 @@ BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<flo
 
     if(size.size()==2)
     {
-        size_ = size;
+        _size = size;
     }
     else
     {
@@ -33,35 +33,44 @@ BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<flo
     {
         std::cout << "Enter proper values" << std::endl;
     }
-    _rectangleG.setPosition(sf::Vector2f(position[0], position[1]));
-    _rectangleG.setSize(sf::Vector2f(size[0], size[1]));
-    _rectangleG.setFillColor(sf::Color(colour[0], colour[1], colour[2]));
+    this->_rectangleG = new sf::RectangleShape(sf::Vector2f(size[0], size[1]));
+    this->_rectangleG->setPosition(sf::Vector2f(position[0], position[1]));
+    this->_rectangleG->setFillColor(sf::Color(colour[0], colour[1], colour[2]));
+
+
+    _speed=speed/60;
 
 }
 
 void BarricadeM::setColour(const std::vector<float> &colour)
 {
     _colour = colour;
-    _rectangleG.setFillColor(sf::Color(_colour[0], _colour[1], _colour[2]));
+    this->_rectangleG->setFillColor(sf::Color(_colour[0], _colour[1], _colour[2]));
 }
 
 bool BarricadeM::checkBounds(){return true;};
 
-sf::RectangleShape& BarricadeM::getRectangleShape() {
-    return _rectangleG;
+sf::RectangleShape* BarricadeM::getRectangleShape() {
+    return this->_rectangleG;
 }
 
-void BarricadeM::moveBarricade(sf::Window window)
+void BarricadeM::moveBarricade(Game *game)
 {
-    sf::Event ev;
-    while (window.pollEvent(ev))
+    _position[1] += _speed;
+    this->_rectangleG->setPosition(sf::Vector2f(_position[0], _position[1]));
+    _posY = _rectangleG->getPosition().y;
+    _posX = _rectangleG->getPosition().x;
+
+    if(_posY <= 0)
     {
-        if (ev.type == sf::Event::KeyPressed)
-        {
-            if (ev.key.code == sf::Keyboard::Up)
-            {
-                std::cout << "dupa" << std::endl;
-            }
-        }
+        _speed *= -1;
     }
+
+    if(_posY >= game->getwindow()->getSize().y - this->_rectangleG->getSize().y )
+    {
+        _speed *= -1;
+    }
+
+
 }
+//    if(this->_rectangleG->getPosition()

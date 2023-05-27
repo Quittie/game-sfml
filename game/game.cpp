@@ -24,6 +24,15 @@ void Game::add(const BarricadeM &object)
     std::cout << "Added successfully!" << std::endl;
 }
 
+void Game::show()
+{
+    for(auto& o : _object)
+    {
+        this->window->draw(*o.getRectangleShape());
+    }
+}
+
+
 bool Game::isWindowOpen()
 {
     return this->window->isOpen();
@@ -52,6 +61,7 @@ void Game::updating()
 void Game::rendering()
 {
     this->window->clear();
+    show();
     this->window->display();
 }
 
@@ -65,3 +75,13 @@ void Game::windowInit()
     sf::VideoMode desktopM = sf::VideoMode::getDesktopMode();
     this->window = new sf::RenderWindow(desktopM, "Soccer Challenge 2k23", sf::Style::Titlebar | sf::Style::Close/* | sf::Style::Fullscreen*/);
 }
+
+sf::RenderWindow* Game::getwindow()
+{
+    return window;
+}
+
+//void Game::shapeInit()
+//{
+//    this->shape.
+//}

@@ -17,16 +17,20 @@ public:
     Game();
     virtual ~Game();
     void add(const BarricadeM &object);
+    void show();
     bool isWindowOpen();
     void updating();
     void rendering();
+    sf::RenderWindow *getwindow();
     BarricadeM get(int number);
 
 private:
     void variablesInit();
     void windowInit();
+    void shapeInit();
 
     sf::RenderWindow *window;
+    sf::RectangleShape shape;
     sf::Event event;
     sf::Clock _clock;
     sf::Time _frameTime;

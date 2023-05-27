@@ -10,16 +10,41 @@
 #include "game.h"
 #include "barricadem.h"
 
-
-
 int main()
 {
     Game game;
 
+    BarricadeM b1({200, 324}, {50, 234}, {103, 35, 0}, 60);
+    BarricadeM b2({100, 524}, {50, 500}, {103, 35, 0}, -60);
+    BarricadeM b3({300, 424}, {50, 456}, {103, 35, 0}, -40);
+    BarricadeM b4({200, 624}, {50, 100}, {103, 35, 0}, 80);
+    BarricadeM b5({800, 524}, {50, 523}, {103, 35, 0}, 90);
+    BarricadeM b6({700, 563}, {50, 400}, {103, 35, 0}, -100);
+    BarricadeM b7({600, 400}, {50, 350}, {103, 35, 0}, -20);
+    BarricadeM b8({400, 500}, {50, 200}, {103, 35, 0}, 35);
+
+    game.add(b1);
+    game.add(b2);
+    game.add(b3);
+    game.add(b4);
+    game.add(b5);
+    game.add(b6);
+    game.add(b7);
+    game.add(b8);
+
+
     while(game.isWindowOpen())
     {
-//        while(game->window.poll)
+        b1.moveBarricade(&game);
+        b2.moveBarricade(&game);
+        b3.moveBarricade(&game);
+        b4.moveBarricade(&game);
+        b5.moveBarricade(&game);
+        b6.moveBarricade(&game);
+        b7.moveBarricade(&game);
+        b8.moveBarricade(&game);
         game.updating();
+
         game.rendering();
     }
     return 0;
