@@ -13,7 +13,7 @@ class Moveable : public sf::Sprite
 {
 public:
     Moveable(const std::vector<float> &position, const std::vector<float> &size);
-    virtual bool checkBounds() = 0;
+//    virtual bool checkBounds();
 protected:
     std::vector<float> _position;
     std::vector<float> _size;

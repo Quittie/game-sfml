@@ -1,11 +1,13 @@
 #include "game.h"
 #include "barricadem.h"
+#include "player.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
 #include <vector>
+#include "pitch.h"
 
 Game::Game()
 {
@@ -24,11 +26,49 @@ void Game::add(const BarricadeM &object)
     std::cout << "Added successfully!" << std::endl;
 }
 
+void Game::addI(const Immoveable &object)
+{
+    _objectI.push_back(object);
+    std::cout << "Added successfully!" << std::endl;
+}
+
+void Game::addM(const Moveable &object)
+{
+    _objectM.push_back(object);
+    std::cout << "Added successfully!" << std::endl;
+}
+
+
 void Game::show()
 {
     for(auto& o : _object)
     {
         this->window->draw(*o.getRectangleShape());
+    }
+}
+
+void Game::showI()
+{
+    for (auto& o : _objectI)
+    {
+//        if (auto pitch = dynamic_cast<Pitch*>(&o)) // Sprawdź, czy obiekt jest instancją klasy Pitch
+//        {
+//            this->window->draw(pitch->getSprite()); // Wyświetl sprite obiektu Pitch
+//        }
+
+        this->window->draw(o);
+    }
+}
+
+
+void Game::showM()
+{
+    for (auto& o : _objectM)
+    {
+        if (auto player = dynamic_cast<Player*>(&o)) // Sprawdź, czy obiekt jest instancją klasy Pitch
+        {
+            this->window->draw(player->getSprite()); // Wyświetl sprite obiektu Pitch
+        }
     }
 }
 
@@ -60,9 +100,14 @@ void Game::updating()
 
 void Game::rendering()
 {
+
     this->window->clear();
+    showI();
     show();
+
+
     this->window->display();
+
 }
 
 void Game::variablesInit()
@@ -73,7 +118,7 @@ void Game::variablesInit()
 void Game::windowInit()
 {
     sf::VideoMode desktopM = sf::VideoMode::getDesktopMode();
-    this->window = new sf::RenderWindow(desktopM, "Soccer Challenge 2k23", sf::Style::Titlebar | sf::Style::Close/* | sf::Style::Fullscreen*/);
+    this->window = new sf::RenderWindow(desktopM, "Soccer Challenge 2k23", sf::Style::Titlebar | sf::Style::Close /*| sf::Style::Fullscreen*/);
 }
 
 sf::RenderWindow* Game::getwindow()

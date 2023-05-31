@@ -2,6 +2,8 @@
 #define GAME_H
 
 #include "barricadem.h"
+#include "immoveable.h"
+#include "moveable.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -17,7 +19,11 @@ public:
     Game();
     virtual ~Game();
     void add(const BarricadeM &object);
+    void addI(const Immoveable &object);
+    void addM(const Moveable &object);
+    void showM();
     void show();
+    void showI();
     bool isWindowOpen();
     void updating();
     void rendering();
@@ -35,6 +41,9 @@ private:
     sf::Clock _clock;
     sf::Time _frameTime;
     std::vector<BarricadeM> _object;
+    std::vector<Immoveable> _objectI;
+    std::vector<Moveable> _objectM;
+
 };
 
 #endif // GAME_H
