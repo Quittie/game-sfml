@@ -26,11 +26,11 @@ int main()
     BarricadeM b8({400, 500}, {50, 200}, {103, 35, 0}, 35);
     BarricadeM b9({400, 500}, {50, 200}, {103, 35, 0}, 35);
 
-    Pitch pitch("trawka.png", {0, 0}, {1, 1});
+    Pitch pitch("trawka.png", {0, 0}, {2.5, 2.5});
 
     Player player({100, 100}, {100, 100}, "trawka.png");
 
-//    pitch.setRect(game);
+    //    pitch.setRect(game);
 
     game.add(b1);
     game.add(b2);

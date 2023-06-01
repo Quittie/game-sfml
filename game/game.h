@@ -41,7 +41,7 @@ private:
     sf::Clock _clock;
     sf::Time _frameTime;
     std::vector<BarricadeM> _object;
-    std::vector<Immoveable> _objectI;
+    std::vector<std::unique_ptr<Immoveable>> _objectI; //unique pointers
     std::vector<Moveable> _objectM;
 
 };

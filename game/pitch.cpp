@@ -16,8 +16,8 @@ Pitch::Pitch(const std::string &source, const std::vector<float> &position, cons
     {
         std::cout << "Added" << std::endl;
         _texture.setRepeated(true);
-        _pitch.setTexture(_texture);
-        _pitch.setScale(_scale[0], _scale[1]);
+        _sprite.setTexture(_texture);
+        _sprite.setScale(_scale[0], _scale[1]);
     }
 
 }

@@ -35,3 +35,8 @@ Immoveable::Immoveable(const std::vector<float> &position, const std::vector<flo
 //    }
 }
 
+sf::Sprite Immoveable::getSprite()
+{
+    return _sprite;
+}
+

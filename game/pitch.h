@@ -15,7 +15,7 @@ public:
     void setRect(Game &game);
     sf::Sprite getSprite();
 private:
-    sf::Texture _texture;
+
     sf::Sprite _pitch;
 //    void makeSprite();
 };

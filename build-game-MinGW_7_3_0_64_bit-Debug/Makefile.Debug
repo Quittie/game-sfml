@@ -291,6 +291,7 @@ debug/game.o: ../game/game.cpp ../game/game.h \
 		C:/SFML/SFML-2.5.1/include/SFML/Graphics/Text.hpp \
 		C:/SFML/SFML-2.5.1/include/SFML/Graphics/VertexBuffer.hpp \
 		../game/immoveable.h \
+		../game/player.h \
 		../game/pitch.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\game.o ..\game\game.cpp
 
@@ -526,7 +527,8 @@ debug/main.o: ../game/main.cpp C:/SFML/SFML-2.5.1/include/SFML/Window.hpp \
 		../game/game.h \
 		../game/barricadem.h \
 		../game/immoveable.h \
-		../game/pitch.h
+		../game/pitch.h \
+		../game/player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\game\main.cpp
 
 debug/moveable.o: ../game/moveable.cpp C:/SFML/SFML-2.5.1/include/SFML/Window.hpp \

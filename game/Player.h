@@ -18,6 +18,7 @@ public:
     Player(const std::vector<float> &position, const std::vector<float> &size, const std::string &source);
     sf::Sprite  getSprite();
     sf::Texture getTexture();
+    void move();
 //    virtual bool checkBounds();
 private:
     std::string _source;

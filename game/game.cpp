@@ -28,7 +28,8 @@ void Game::add(const BarricadeM &object)
 
 void Game::addI(const Immoveable &object)
 {
-    _objectI.push_back(object);
+//    std::unique_ptr<Immoveable> newObj = std::make_unique<Immoveable>(object);
+    _objectI.emplace_back(std::make_unique<Immoveable>(object));
     std::cout << "Added successfully!" << std::endl;
 }
 
@@ -56,7 +57,8 @@ void Game::showI()
 //            this->window->draw(pitch->getSprite()); // Wyświetl sprite obiektu Pitch
 //        }
 
-        this->window->draw(o);
+        this->window->draw(o->getSprite());
+
     }
 }
 
@@ -71,7 +73,6 @@ void Game::showM()
         }
     }
 }
-
 
 bool Game::isWindowOpen()
 {

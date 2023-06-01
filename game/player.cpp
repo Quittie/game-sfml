@@ -15,6 +15,22 @@ Player::Player(const std::vector<float> &position, const std::vector<float> &siz
 
 }
 
+void Player::move()
+{
+    sf::Event event;
+    if (event.type == sf::Event::KeyPressed)
+    {
+        if (event.key.code == sf::Keyboard::Left)
+            _player.move(-5, 0);
+        else if (event.key.code == sf::Keyboard::Right)
+            _player.move(5, 0);
+        else if (event.key.code == sf::Keyboard::Up)
+            _player.move(0, -5);
+        else if (event.key.code == sf::Keyboard::Down)
+            _player.move(0, 5);
+    }
+}
+
 sf::Sprite Player::getSprite()
 {
     return _player;
