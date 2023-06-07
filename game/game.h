@@ -4,6 +4,7 @@
 #include "barricadem.h"
 #include "immoveable.h"
 #include "moveable.h"
+#include "player.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -25,8 +26,9 @@ public:
     void show();
     void showI();
     bool isWindowOpen();
-    void updating();
+    void updating(Player &p);
     void rendering();
+    void events(Player &p);
     sf::RenderWindow *getwindow();
     BarricadeM get(int number);
 
@@ -34,7 +36,7 @@ private:
     void variablesInit();
     void windowInit();
     void shapeInit();
-
+    Player* player;
     sf::RenderWindow *window;
     sf::RectangleShape shape;
     sf::Event event;
@@ -42,7 +44,7 @@ private:
     sf::Time _frameTime;
     std::vector<BarricadeM> _object;
     std::vector<std::unique_ptr<Immoveable>> _objectI; //unique pointers
-    std::vector<Moveable> _objectM;
+    std::vector<std::unique_ptr<Moveable>> _objectM;
 
 };
 

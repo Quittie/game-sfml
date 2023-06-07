@@ -28,7 +28,7 @@ int main()
 
     Pitch pitch("trawka.png", {0, 0}, {2.5, 2.5});
 
-    Player player({100, 100}, {100, 100}, "trawka.png");
+    Player player({200, 200}, {500, 500}, "ball.png", 9);
 
     //    pitch.setRect(game);
 
@@ -46,7 +46,6 @@ int main()
 
     while(game.isWindowOpen())
     {
-
         b1.moveBarricade(&game);
         b2.moveBarricade(&game);
         b3.moveBarricade(&game);
@@ -55,10 +54,36 @@ int main()
         b6.moveBarricade(&game);
         b7.moveBarricade(&game);
         b8.moveBarricade(&game);
-        game.updating();
-        game.getwindow()->draw(player.getSprite());
-        game.showI();
-        game.showM();
+        game.updating(player);
+        player.move();
+        //        player.move(&game);
+//        while(game.getwindow()->pollEvent(game.getwindow()->event))
+//        {
+//            switch(this->event.type)
+//            {
+//            case sf::Event::KeyPressed:
+//                if(this->event.key.code == sf::Keyboard::Escape)
+//                {
+//                    this->window->setSize(sf::Vector2u(800, 600));
+//                }
+//                if(this->event.key.code == sf::Keyboard::Down)
+//                {
+//                    for(auto &o : game._objectM)
+//                    {
+//                        //                    o->moveRight();
+//                    }
+//                }
+
+
+//                break;
+
+//            case sf::Event::Closed:
+//                game.getwindow()->close();
+//                break;
+//            }
+//        game.showM();
+//        game.showI();
+
         game.rendering();
 
     }

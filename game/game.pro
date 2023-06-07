@@ -37,5 +37,6 @@ HEADERS += \
 SOURCES +=
 fiutbol.png
 trawka.png
+ball.png
 
 

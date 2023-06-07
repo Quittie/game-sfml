@@ -4,6 +4,7 @@
 
 #include "moveable.h"
 
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -15,16 +16,16 @@
 class Player : public Moveable
 {
 public:
-    Player(const std::vector<float> &position, const std::vector<float> &size, const std::string &source);
-    sf::Sprite  getSprite();
-    sf::Texture getTexture();
+    Player(const std::vector<float> &position, const std::vector<float> &size, const std::string &source, int velocity);
+    sf::Sprite getSprite();
+
     void move();
+
+
 //    virtual bool checkBounds();
 private:
     std::string _source;
-    sf::Texture _texture;
-    sf::Sprite _player;
-
+    sf::Event ev;
 
 };
 

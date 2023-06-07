@@ -5,7 +5,7 @@
 #include <vector>
 
 BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<float> &size, const std::vector<float> &colour, float speed):
-    Moveable(position, size)
+    Moveable(position, size, speed)
 {
     if(position.size()==2)
     {
