@@ -16,7 +16,8 @@ public:
     void moveBarricade(Game* game);
     void setColour(const std::vector<float> &color);
     void setColBar();
-    virtual bool checkBounds();
+
+//    virtual bool checkBounds();
     sf::RectangleShape* getRectangleShape();
 protected:
     sf::RectangleShape *_rectangleG;

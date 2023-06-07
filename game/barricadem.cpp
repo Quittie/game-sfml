@@ -5,7 +5,7 @@
 #include <vector>
 
 BarricadeM::BarricadeM(const std::vector<float> &position, const std::vector<float> &size, const std::vector<float> &colour, float speed):
-    Moveable(position, size)
+    Moveable(position, size, speed)
 {
     if(position.size()==2)
     {
@@ -48,7 +48,8 @@ void BarricadeM::setColour(const std::vector<float> &colour)
     this->_rectangleG->setFillColor(sf::Color(_colour[0], _colour[1], _colour[2]));
 }
 
-bool BarricadeM::checkBounds(){return true;};
+
+
 
 sf::RectangleShape* BarricadeM::getRectangleShape() {
     return this->_rectangleG;
