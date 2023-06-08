@@ -1,3 +1,4 @@
+
 #include "game.h"
 #include "barricadem.h"
 #include "player.h"
@@ -20,6 +21,23 @@ Game::~Game()
 {
     delete this->window;
 }
+
+bool Game::isGameFinished()
+{
+//    if(time==0)
+//    {
+//        return false;
+//    }
+//    else
+//    {
+        return true;
+
+}
+void Game::increaseScore()
+{
+    _score++;
+}
+
 void Game::add(const BarricadeM &object)
 {
     _object.push_back(object);
@@ -37,33 +55,58 @@ void Game::addM(const Moveable &object)
 {
     _objectM.emplace_back(std::make_unique<Moveable>(object));
     std::cout << "Added successfully!" << std::endl;
-
-
 }
+
+void Game::addH(const hud &object)
+{
+    _objectH.emplace_back(std::make_unique<hud>(object));
+    std::cout << "Added successfully!" << std::endl;
+}
+
+void Game::delHeart()
+{
+    _objectH.pop_back();
+}
+
+void Game::checkChances()
+{
+    if((_chances)%3==0&&_chances!=9)
+    {
+        delHeart();
+    }
+}
+
 
 void Game::events(Player &p)
 {
-    while(this->window->pollEvent(this->event))
-    {
-        switch(this->event.type)
-        {
-        case sf::Event::KeyPressed:
-            if(this->event.key.code == sf::Keyboard::Escape)
-            {
-                this->window->setSize(sf::Vector2u(800, 600));
-            }
-            if(this->event.key.code == sf::Keyboard::Right)
-            {
-                std::cout << "ASD" << std::endl;
-                p.getSprite().move(0, 7);
-            }
+//    while(this->window->pollEvent(this->event))
+//    {
+//        switch(this->event.type)
+//        {
+//        case sf::Event::KeyPressed:
+//            if(this->event.key.code == sf::Keyboard::Escape)
+//            {
+//                this->window->setSize(sf::Vector2u(800, 600));
+//            }
+//            if(this->event.key.code == sf::Keyboard::Right)
+//            {
+//                std::cout << "ASD" << std::endl;
+//                p.getSprite().move(0, 7);
+//            }
 
-        break;
+//        break;
 
-        case sf::Event::Closed:
-            this->window->close();
-            break;
-        }
+//        case sf::Event::Closed:
+//            this->window->close();
+//            break;
+//        }
+
+
+//    }
+    sf::Event event;
+    while (window->pollEvent(event)) {
+        if (event.type == sf::Event::Closed)
+            window->close();
 
 
     }
@@ -82,10 +125,7 @@ void Game::showI()
 {
     for (auto& o : _objectI)
     {
-//        if (auto pitch = dynamic_cast<Pitch*>(&o)) // Sprawdź, czy obiekt jest instancją klasy Pitch
-//        {
-//            this->window->draw(pitch->getSprite()); // Wyświetl sprite obiektu Pitch
-//        }
+
 
         this->window->draw(o->getSprite());
 
@@ -98,7 +138,7 @@ void Game::showM()
     for (auto& o : _objectM)
     {
 
-        this->window->draw(o->getSprite()); // Wyświetl sprite obiektu Pitch
+        this->window->draw(o->getSprite());
 
     }
 }
@@ -114,15 +154,6 @@ void Game::updating(Player &p)
 
 
 
-//    for (auto& object : _objectM)
-//    {
-//        Player* player = dynamic_cast<Player*>(object.get());
-//        if (player)
-//        {
-//            player->move(this);
-//            player->setPosition(player->getSprite().getPosition());
-//        }
-//    }
 }
 
 void Game::rendering()
@@ -154,8 +185,3 @@ sf::RenderWindow* Game::getwindow()
 {
     return window;
 }
-
-//void Game::shapeInit()
-//{
-//    this->shape.
-//}

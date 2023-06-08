@@ -28,9 +28,7 @@ int main()
 
     Pitch pitch("trawka.png", {0, 0}, {2.5, 2.5});
 
-    Player player({200, 200}, {500, 500}, "ball.png", 9);
-
-    //    pitch.setRect(game);
+    Player player({200, 200}, {500, 500}, "ball.png", 90);
 
     game.add(b1);
     game.add(b2);
@@ -54,35 +52,10 @@ int main()
         b6.moveBarricade(&game);
         b7.moveBarricade(&game);
         b8.moveBarricade(&game);
+        player.move();
+
         game.updating(player);
         player.move();
-        //        player.move(&game);
-//        while(game.getwindow()->pollEvent(game.getwindow()->event))
-//        {
-//            switch(this->event.type)
-//            {
-//            case sf::Event::KeyPressed:
-//                if(this->event.key.code == sf::Keyboard::Escape)
-//                {
-//                    this->window->setSize(sf::Vector2u(800, 600));
-//                }
-//                if(this->event.key.code == sf::Keyboard::Down)
-//                {
-//                    for(auto &o : game._objectM)
-//                    {
-//                        //                    o->moveRight();
-//                    }
-//                }
-
-
-//                break;
-
-//            case sf::Event::Closed:
-//                game.getwindow()->close();
-//                break;
-//            }
-//        game.showM();
-//        game.showI();
 
         game.rendering();
 
@@ -91,96 +64,3 @@ int main()
 }
 
 
-//    std::vector<float> position { 100.0f, 100.0f };
-//    std::vector<float> size { 50.0f, 50.0f };
-//    std::vector<float> colour { 255.0f, 0.0f, 0.0f };
-
-//    std::vector<float> position1 { 739.0f, 452.0f };
-//    std::vector<float> size1 { 569.0f, 1000.0f };
-//    std::vector<float> colour1 { 65.0f, 186.6f, 172.0f };
-//    BarricadeM barricade(position, size, colour);
-//    BarricadeM barricade1(position1, size1, colour1);
-
-//    game.add(barricade);
-//    game.add(barricade1);
-//    game.start();
-
-//#include <SFML/Window.hpp>
-//#include <SFML/Graphics.hpp>
-
-//int main()
-//{
-
-
-
-
-
-//    bool movingUpR = true;
-//    bool movingUpG = true;
-//    bool movingUpB = true;
-//    float yPosG = rectangleG.getPosition().y;
-//    float yPosR = rectangleR.getPosition().y;
-//    float yPosB = rectangleB.getPosition().y;
-
-//    while (window.isOpen())
-//    {
-//        sf::Event event;
-//        while (window.pollEvent(event))
-//        {
-//            if (event.type == sf::Event::Closed)
-//                window.close();
-//        }
-
-//        // Move the rectangle up and down
-//        if (movingUpR)
-//        {
-//            yPosR -= 0.05f;
-//            if (yPosR < 0)
-//                movingUpR = false;
-//        }
-//        else
-//        {
-//            yPosR += 0.05f;
-//            if (yPosR > 400)
-//                movingUpR = true;
-//        }
-
-//        if (movingUpG)
-//        {
-//            yPosG -= 0.10f;
-//            if (yPosG < 0)
-//                movingUpG = false;
-//        }
-//        else
-//        {
-//            yPosG += 0.10f;
-//            if (yPosG > 400)
-//                movingUpG = true;
-//        }
-
-//        if (movingUpB)
-//        {
-//            yPosB -= 0.15f;
-//            if (yPosB < 0)
-//                movingUpB = false;
-//        }
-//        else
-//        {
-//            yPosB += 0.15f;
-//            if (yPosB > 400)
-//                movingUpB = true;
-//        }
-
-//        rectangleR.setPosition(rectangleR.getPosition().x, yPosR);
-//        rectangleG.setPosition(rectangleG.getPosition().x, yPosG);
-//        rectangleB.setPosition(rectangleB.getPosition().x, yPosB);
-
-//        window.clear();
-//        window.draw(rectangleG);
-//        window.draw(rectangleR);
-//        window.draw(rectangleB);
-//        window.display();
-//    }
-
-//    return 0;
-//}

@@ -1,5 +1,3 @@
-
-
 #ifndef BARRICADEM_H
 #define BARRICADEM_H
 

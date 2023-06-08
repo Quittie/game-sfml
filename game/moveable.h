@@ -16,6 +16,7 @@ public:
     sf::Sprite getSprite();
     std::vector<float> getSize();
 
+
 //    virtual bool checkBounds();
 protected:
 

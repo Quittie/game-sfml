@@ -18,8 +18,8 @@ class Player : public Moveable
 public:
     Player(const std::vector<float> &position, const std::vector<float> &size, const std::string &source, int velocity);
     sf::Sprite getSprite();
-
     void move();
+
 
 
 //    virtual bool checkBounds();

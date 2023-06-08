@@ -40,6 +40,7 @@ public:
     bool isGameFinished();
 
 private:
+    int time
     int _chances = 9;
     void variablesInit();
     void windowInit();
