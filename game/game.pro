@@ -12,7 +12,8 @@ SOURCES += \
         moveable.cpp \
         pitch.cpp \
         player.cpp \
-        plyer.cpp
+        plyer.cpp \
+        timec.cpp
 
 
 INCLUDEPATH += "C:/SFML/SFML-2.5.1/include"
@@ -26,6 +27,7 @@ CONFIG(debug, debug|release){
 
 HEADERS += \
     Player.h \
+    TimeC.h \
     barricadem.h \
     game.h \
     hud.h \

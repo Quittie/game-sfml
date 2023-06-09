@@ -14,11 +14,15 @@
 class hud : public sf::Sprite
 {
 public:
-    hud(const std::vector<int> &position, const std::vector<int> &size, const sf::Texture &texture);
+    hud(const std::vector<float> &position, const std::vector<float> &size, const std::string &source);
+    sf::Sprite getHUD();
 protected:
-    std::vector<int> _position;
-    std::vector<int> _size;
+    std::vector<float> _position;
+    std::vector<float> _scale;
+    std::string _source;
+    sf::Sprite _hud_object;
     sf::Texture _texture;
+
 };
 
 #endif // HUD_H

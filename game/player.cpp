@@ -42,7 +42,11 @@ void Player::move()
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     {
         this->_sprite.move(0.f, this->_velocity);
+
     }
+
+}
+
 //    sf::Event event;
 //    while (game->getwindow()->pollEvent(event))
 //    {
@@ -62,7 +66,7 @@ void Player::move()
 //    _sprite.setPosition(_position[0], _position[1]);
 
 
-}
+//}
 //void Player::move(Game *game)
 //{
 //    sf::Event event;
@@ -90,7 +94,7 @@ void Player::move()
 //    }
 //}
 
-sf::Sprite Player::getSprite()
+sf::Sprite  Player::getSprite()
 {
     return _sprite;
 }
