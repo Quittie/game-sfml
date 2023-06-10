@@ -34,9 +34,11 @@ private:
     void playerInit();
     void barricadesInit();
     bool reset = false;
+    bool deathscreen = false;
     Immoveable *pitch;
     Player *player;
     Ball *ball;
+    Immoveable *screen;
     Immoveable *gate;
     Immoveable *penaltyArea;
     Immoveable *playerArea;
@@ -48,6 +50,7 @@ private:
     CounterWithText *time;
     ImmoveableCounter *attempts;
     ImmoveableCounter *hearts;
+    sf::Text score;
     sf::Clock clock;
     sf::Time elapsed;
     void ballInit();
@@ -55,6 +58,12 @@ private:
     void resetGame();
 
     void checkPlayerArea();
+
+    void showResults();
+
+    void createResults();
+
+
 };
 
 #endif // GAME_H

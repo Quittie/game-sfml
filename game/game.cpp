@@ -12,6 +12,7 @@
 Game::Game() {
     std::cout << "Let's start the game!" << std::endl;
     this->variablesInit();
+    this->screen = new Immoveable("screen.png");
     this->pitch = new Immoveable("trawka.png");
     this->windowInit();
     this->playerInit();
@@ -25,6 +26,7 @@ Game::Game() {
     this->penaltyArea = new Immoveable({1720, 390},{200, 300});
     this->playerArea = new Immoveable({0, 0},{600, 1080});
     this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "player.png");
+    createResults();
 }
 
 Game::~Game()
@@ -55,7 +57,7 @@ void Game::update(bool &keyPressed)
         hearts->decreaseCounter();
         reset = true;
         if(hearts->getCounter() == 0) {
-            // TODO: gameOver();
+            deathscreen = true;
         }
     }
 }
@@ -70,20 +72,27 @@ void Game::resetGame() {
 void Game::render()
 {
     this->window->clear();
-    this->pitch->render(this->window);
-    this->player->render(this->window);
-    for (const auto &barricade: this->barricades) {
-        barricade->render(this ->window);
+    if(deathscreen == false)
+    {   this->pitch->render(this->window);
+        this->player->render(this->window);
+        for (const auto &barricade: this->barricades) {
+            barricade->render(this ->window);
+        }
+        this->ball->render(this->window);
+        this->gate->render(this->window);
+        this->hearts->render(this->window);
+        this->attempts->render(this->window);
+        this->goals->render(this->window);
+        this->time->render(this->window);
+        this->penaltyArea->render(this->window);
+        this->playerArea->render(this->window);
+        this->goalkeeper->render(this->window);
     }
-    this->ball->render(this->window);
-    this->gate->render(this->window);
-    this->hearts->render(this->window);
-    this->attempts->render(this->window);
-    this->goals->render(this->window);
-    this->time->render(this->window);
-    this->penaltyArea->render(this->window);
-    this->playerArea->render(this->window);
-    this->goalkeeper->render(this->window);
+    else
+    {
+        this->screen->render(this->window);
+        showResults();
+    }
     this->window->display();
 }
 
@@ -122,14 +131,14 @@ void Game::playerInit() {
 }
 
 void Game::barricadesInit() {
-    Barricade b1({700, 350}, {20, 100}, {103, 35, 0}, 2, true);
-    Barricade b2({800, 524}, {20, 100}, {103, 35, 0}, 2, false);
-    Barricade b3({900, 424}, {20, 100}, {103, 35, 0}, 2, true);
-    Barricade b4({1000, 624}, {20, 100}, {103, 35, 0}, 2, false);
-    Barricade b5({1100, 524}, {20, 100}, {103, 35, 0}, 2, true);
-    Barricade b6({1200, 563}, {20, 100}, {103, 35, 0}, 2, false);
-    Barricade b7({1300, 400}, {20, 100}, {103, 35, 0}, 2, true);
-    Barricade b8({1400, 500}, {20, 100}, {103, 35, 0}, 2, true);
+    Barricade b1({700, 50}, {40, 200}, {103, 35, 0}, 3, true);
+    Barricade b2({800, 524}, {40, 150}, {103, 35, 0}, 2, false);
+    Barricade b3({900, 124}, {40, 300}, {103, 35, 0}, 2, true);
+    Barricade b4({1000, 624}, {40, 100}, {103, 35, 0}, 5, false);
+    Barricade b5({1100, 524}, {40, 250}, {103, 35, 0}, 2, true);
+    Barricade b6({1200, 563}, {40, 220}, {103, 35, 0}, 4, false);
+    Barricade b7({1300, 600}, {40, 420}, {103, 35, 0}, 2, true);
+    Barricade b8({1400, 500}, {40, 150}, {103, 35, 0}, 2, true);
     barricades.push_back(std::make_unique<Barricade>(b1));
     barricades.push_back(std::make_unique<Barricade>(b2));
     barricades.push_back(std::make_unique<Barricade>(b3));
@@ -225,4 +234,26 @@ void Game::checkPlayerArea() {
     if(playerX > maximumX) {
         player->updatePosition(maximumX, player->getSprite().getPosition().y);
     }
+}
+
+void Game::createResults()
+{
+
+    score.setString(std::to_string(goals->getCounter()));
+    auto font = new sf::Font;
+    if (!font->loadFromFile("arial.ttf")) {
+        std::cout << "Error :( " << std::endl;
+        // Error handling if the font fails to load
+    }
+    score.setFont(*font);
+    score.setPosition(900, 500);
+    score.setCharacterSize(100);
+    score.setFillColor(sf::Color::Cyan);
+}
+
+void Game::showResults()
+{
+    score.setString(std::to_string(goals->getCounter()));
+    this->window->draw(score);
+
 }

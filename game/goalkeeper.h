@@ -8,7 +8,6 @@ class Goalkeeper : public Barricade {
 public:
     Goalkeeper(const std::vector<float> &position, const std::vector<float> &size, const std::vector<sf::Uint8> &colour,
                float speed, const std::string &source);
-public:
     void update(std::vector<float> penaltyArea, const sf::Vector2f penaltyAreaPosition);
 
 
