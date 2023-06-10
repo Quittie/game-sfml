@@ -31,3 +31,28 @@ void Barricade::moveBarricade(sf::RenderTarget *target) {
     }
 }
 
+void Barricade::update(sf::RenderTarget *target) {
+    this->moveBarricade(target);
+}
+
+void Barricade::render(sf::RenderTarget *target) {
+    target->draw(this->_rectangleShape);
+}
+
+const sf::RectangleShape &Barricade::getRectangleShape() const {
+    return _rectangleShape;
+}
+
+Barricade::Barricade(const std::vector<float> &position, const std::vector<float> &size,
+                     const std::vector<sf::Uint8> &colour, float speed, bool movingUp, const std::string &source) : Barricade::Barricade(position, size, colour, speed, movingUp){
+    loadTexture(source);
+    _rectangleShape.setTexture(&_texture);
+}
+
+const void Barricade::loadTexture(const std::string& source) {
+    if (!_texture.loadFromFile(source)) {
+        std::cout << "Gate not added" << std::endl;
+    } else {
+        std::cout << "Gate added" << std::endl;
+    }
+}
