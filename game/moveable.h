@@ -13,6 +13,7 @@ class Moveable : public sf::Sprite
 {
 public:
     Moveable(const std::vector<float> &position, const std::vector<float> &size, float speed);
+    void speedUp();
 protected:
     sf::Texture _texture;
     std::vector<float> _startingPosition;

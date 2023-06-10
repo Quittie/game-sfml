@@ -12,3 +12,7 @@ Moveable::Moveable(const std::vector<float> &position, const std::vector<float> 
 
 }
 
+void Moveable::speedUp()
+{
+    _speed++;
+}

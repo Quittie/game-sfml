@@ -9,10 +9,12 @@
 #include <iostream>
 #include <vector>
 #include <valarray>
+#include <string>
 
 Game::Game() {
     std::cout << "Let's start the game!" << std::endl;
     this->variablesInit();
+    this->disp = new Immoveable("mokey.png");
     this->screen = new Immoveable("screen.png");
     this->pitch = new Immoveable("trawka.png");
     this->windowInit();
@@ -27,6 +29,7 @@ Game::Game() {
     this->penaltyArea = new Immoveable({1720, 390},{200, 300});
     this->playerArea = new Immoveable({0, 0},{600, 1080});
     this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "player.png");
+    createSign();
     createResults();
     loadMusic();
 
@@ -89,21 +92,33 @@ void Game::render()
         this->hearts->render(this->window);
         this->attempts->render(this->window);
         this->goals->render(this->window);
-        if(add==true&&goals->getCounter()==3)
+        if(add1==true&&goals->getCounter()==2)
         {
             increaseLevel1();
-            add = false;
+            add1 = false;
 
+        }
+        if(add2==true&&goals->getCounter()==3)
+        {
+            increaseLevel2();
+            add2 = false;
         }
         this->time->render(this->window);
         this->penaltyArea->render(this->window);
         this->playerArea->render(this->window);
         this->goalkeeper->render(this->window);
+
     }
     else
     {
         stopMusic();
         this->screen->render(this->window);
+        showResults();
+    }
+    if(sfmlEvent.key.code == sf::Keyboard::Enter)
+    {
+        this->disp->render(this->window);
+        showSign();
         showResults();
     }
     this->window->display();
@@ -148,18 +163,18 @@ void Game::barricadesInit() {
     Barricade b2({800, 524}, {40, 150}, {103, 35, 0}, 2, false);
     Barricade b3({900, 124}, {40, 300}, {103, 35, 0}, 2, true);
     Barricade b4({1000, 624}, {40, 100}, {103, 35, 0}, 5, false);
-    Barricade b5({1100, 524}, {40, 250}, {103, 35, 0}, 2, true);
-    Barricade b6({1200, 563}, {40, 220}, {103, 35, 0}, 4, false);
-    Barricade b7({1300, 600}, {40, 420}, {103, 35, 0}, 2, true);
-    Barricade b8({1400, 500}, {40, 150}, {103, 35, 0}, 2, true);
+//    Barricade b5({1100, 524}, {40, 250}, {103, 35, 0}, 2, true);
+//    Barricade b6({1200, 563}, {40, 220}, {103, 35, 0}, 4, false);
+//    Barricade b7({1300, 600}, {40, 420}, {103, 35, 0}, 2, true);
+//    Barricade b8({1400, 500}, {40, 150}, {103, 35, 0}, 2, true);
     barricades.push_back(std::make_unique<Barricade>(b1));
     barricades.push_back(std::make_unique<Barricade>(b2));
     barricades.push_back(std::make_unique<Barricade>(b3));
     barricades.push_back(std::make_unique<Barricade>(b4));
-    barricades.push_back(std::make_unique<Barricade>(b5));
-    barricades.push_back(std::make_unique<Barricade>(b6));
-    barricades.push_back(std::make_unique<Barricade>(b7));
-    barricades.push_back(std::make_unique<Barricade>(b8));
+//    barricades.push_back(std::make_unique<Barricade>(b5));
+//    barricades.push_back(std::make_unique<Barricade>(b6));
+//    barricades.push_back(std::make_unique<Barricade>(b7));
+//    barricades.push_back(std::make_unique<Barricade>(b8));
 }
 
 void Game::ballInit() {
@@ -254,12 +269,12 @@ void Game::createResults()
 
     score.setString(std::to_string(goals->getCounter()));
     auto font = new sf::Font;
-    if (!font->loadFromFile("arial.ttf")) {
+    if (!font->loadFromFile("ourland.ttf")) {
         std::cout << "Error :( " << std::endl;
         // Error handling if the font fails to load
     }
     score.setFont(*font);
-    score.setPosition(900, 500);
+    score.setPosition(900, 700);
     score.setCharacterSize(100);
     score.setFillColor(sf::Color::Cyan);
 }
@@ -270,6 +285,28 @@ void Game::showResults()
     this->window->draw(score);
 
 }
+
+
+void Game::createSign()
+{
+    std::string signS =  "\t  Move the mouse \n  to continue the game \n \n   Your current score: ";
+    sign.setString(signS);
+    auto font = new sf::Font;
+    if (!font->loadFromFile("ourland.ttf")) {
+        std::cout << "Error :( " << std::endl;
+        // Error handling if the font fails to load
+    }
+    sign.setFont(*font);
+    sign.setPosition(350, 200);
+    sign.setCharacterSize(100);
+    sign.setFillColor(sf::Color::Black);
+}
+
+void Game::showSign()
+{
+    this->window->draw(sign);
+}
+
 
 void Game::loadMusic()
 {
@@ -290,9 +327,9 @@ void Game::stopMusic()
 
 void Game::increaseLevel1()
 {
-    Barricade b9({750, 50}, {40, 210}, {103, 35, 0}, 3, false);
-    Barricade b10({550, 524}, {40, 170}, {103, 35, 0}, 2, false);
-    Barricade b11({370, 124}, {40, 350}, {103, 35, 0}, 2, true);
+    Barricade b9({1150, 50}, {40, 210}, {103, 35, 0}, 3, false);
+    Barricade b10({1000, 524}, {40, 170}, {103, 35, 0}, 2, false);
+    Barricade b11({1250, 124}, {40, 350}, {103, 35, 0}, 2, true);
 
     barricades.push_back(std::make_unique<Barricade>(b9));
     barricades.push_back(std::make_unique<Barricade>(b10));
@@ -301,5 +338,12 @@ void Game::increaseLevel1()
 }
 void Game::increaseLevel2()
 {
+    for(auto &bar : barricades)
+    {
+        for(int i=0; i < 5; i++)
+        {
+            bar->speedUp();
+        }
 
+    }
 }

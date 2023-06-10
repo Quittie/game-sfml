@@ -31,16 +31,19 @@ public:
 
 
 private:
-    bool add = true;
+    bool add1 = true;
+    bool add2 = true;
     void variablesInit();
     void windowInit();
     void playerInit();
     void barricadesInit();
     bool reset = false;
     bool deathscreen = false;
+    bool enterpressed = true;
     Immoveable *pitch;
     Player *player;
     Ball *ball;
+    Immoveable *disp;
     Immoveable *screen;
     Immoveable *gate;
     Immoveable *penaltyArea;
@@ -54,6 +57,7 @@ private:
     ImmoveableCounter *attempts;
     ImmoveableCounter *hearts;
     sf::Text score;
+    sf::Text sign;
     sf::Clock clock;
     sf::Time elapsed;
     sf::Music music;
@@ -64,6 +68,10 @@ private:
     void checkPlayerArea();
 
     void showResults();
+
+    void showSign();
+
+    void createSign();
 
     void createResults();
 

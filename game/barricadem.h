@@ -17,6 +17,7 @@ public:
 
     const sf::RectangleShape &getRectangleShape() const;
 
+
 protected:
     sf::RectangleShape _rectangleShape;
 private:
