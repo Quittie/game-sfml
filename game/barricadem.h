@@ -6,23 +6,12 @@
 
 class Game;
 
-class BarricadeM : public Moveable
+class Barricade : public Moveable
 {
 public:
-    BarricadeM(const std::vector<float> &position, const std::vector<float> &size, const std::vector<float> &colour, float speed);
-    void displayColour();
-    void moveBarricade(Game* game);
-    void setColour(const std::vector<float> &color);
-    void setColBar();
+    Barricade(const std::vector<float> &position, const std::vector<float> &size, const std::vector<sf::Uint8> &colour, float speed, bool movingUp);
+    Barricade(const std::vector<float> &position, const std::vector<float> &size, const std::vector<sf::Uint8> &colour, float speed, bool movingUp, const std::string &source);
+    void update(sf::RenderTarget *target);
+    void render(sf::RenderTarget* target);
 
-//    virtual bool checkBounds();
-    sf::RectangleShape* getRectangleShape();
-protected:
-    sf::RectangleShape *_rectangleG;
-    std::vector<float> _colour;
-    float _speed;
-    float _posX = 0.0;
-    float _posY = 0.0;
-};
-
-#endif // BARRICADEM_H
+    const sf::RectangleShape &getRectangleShape() const;
