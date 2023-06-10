@@ -6,6 +6,8 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "Move Ball");
 
+    sf::FloatRect restrictedArea(0.f, 0.f, 300.f, 600.f);
+
     sf::Texture backgroundTexture;
     if (!backgroundTexture.loadFromFile("grass.png"))
     {
@@ -70,6 +72,12 @@ int main()
     scoreText.setPosition(10, 10);
     scoreText.setFillColor(sf::Color::Black); // Set the color to black
 
+    sf::Text timerText; // Timer text
+    timerText.setFont(font);
+    timerText.setCharacterSize(30);
+    timerText.setPosition(10, 550);
+    timerText.setFillColor(sf::Color::Red); // Set the color to red
+
     sf::RectangleShape rectangle(rectSize);
     rectangle.setPosition(rectPosition);
     rectangle.setFillColor(sf::Color::White); // Set the color of the first rectangle
@@ -86,6 +94,11 @@ int main()
     rectangle4.setPosition(rect4Position);
     rectangle4.setFillColor(sf::Color::Black); // Set the color of the fourth rectangle
 
+    sf::Clock timer; // Timer object
+    int timeLimit = 10; // Time limit in seconds
+    bool timerStarted = false;
+
+    bool confinedToArea = true; // Flag to check if the ball is confined to the restricted area
 
     while (window.isOpen())
     {
@@ -104,6 +117,7 @@ int main()
                         spacePressed = true;
                         // Store the previous velocity before the spacebar was pressed
                         previousVelocity = velocity;
+                        confinedToArea = false; // Ball is no longer confined to the restricted area
                     }
                 }
             }
@@ -123,6 +137,10 @@ int main()
             ball.setPosition(spawnPosition);
             spacePressed = false; // Reset the spacePressed flag
             ballMoving = false;   // Stop the ball from moving
+
+            timer.restart(); // Restart the timer
+            timerStarted = false; // Reset the timer started flag
+            confinedToArea = true; // Ball is confined to the restricted area
         }
 
         // Move the ball based on arrow key inputs or previous direction
@@ -131,39 +149,45 @@ int main()
             // Reset the velocity
             velocity = sf::Vector2f(0.f, 0.f);
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && ball.getPosition().y > 0)
+            // Check if the ball is within the restricted area
+            if (restrictedArea.contains(ball.getPosition()))
             {
-                velocity.y = -speed;
-                ballMoving = true;
-            }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && ball.getPosition().y + ball.getGlobalBounds().height < window.getSize().y)
-            {
-                velocity.y = speed;
-                ballMoving = true;
-            }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && ball.getPosition().y > restrictedArea.top + 1)
+                {
+                    velocity.y = -speed;
+                    ballMoving = true;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && ball.getPosition().y + ball.getGlobalBounds().height < restrictedArea.top + restrictedArea.height + 1)
+                {
+                    velocity.y = speed;
+                    ballMoving = true;
+                }
 
-            if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && ball.getPosition().x > 0)
-            {
-                velocity.x = -speed;
-                ballMoving = true;
-            }
-            else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && ball.getPosition().x + ball.getGlobalBounds().width < window.getSize().x)
-            {
-                velocity.x = speed;
-                ballMoving = true;
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && ball.getPosition().x > restrictedArea.left + 1)
+                {
+                    velocity.x = -speed;
+                    ballMoving = true;
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && ball.getPosition().x + ball.getGlobalBounds().width < restrictedArea.left + restrictedArea.width + 1)
+                {
+                    velocity.x = speed;
+                    ballMoving = true;
+                }
             }
         }
-
         if (spacePressed)
         {
             // Move the ball unconditionally in the previous direction
             ball.move(previousVelocity);
 
             // Check if the ball reaches the sides of the window
-            if (ball.getPosition().x <= 0 || ball.getPosition().x + ball.getGlobalBounds().width >= window.getSize().x)
-                previousVelocity.x = -previousVelocity.x;
-            if (ball.getPosition().y <= 0 || ball.getPosition().y + ball.getGlobalBounds().height >= window.getSize().y)
-                previousVelocity.y = -previousVelocity.y;
+            if (!confinedToArea)
+            {
+                if (ball.getPosition().x <= 0 || ball.getPosition().x + ball.getGlobalBounds().width >= window.getSize().x)
+                    previousVelocity.x = -previousVelocity.x;
+                if (ball.getPosition().y <= 0 || ball.getPosition().y + ball.getGlobalBounds().height >= window.getSize().y)
+                    previousVelocity.y = -previousVelocity.y;
+            }
 
             // Check for collision with the rectangles
             if (ball.getGlobalBounds().intersects(rectangle.getGlobalBounds()))
@@ -179,6 +203,41 @@ int main()
             if (ball.getGlobalBounds().intersects(rectangle3.getGlobalBounds()))
             {
                 previousVelocity.x = -previousVelocity.x; // Reverse the x-direction velocity
+            }
+
+            if (!timerStarted)
+            {
+                timer.restart(); // Start the timer
+                timerStarted = true;
+            }
+
+            int elapsedSeconds = static_cast<int>(timer.getElapsedTime().asSeconds());
+            int remainingSeconds = timeLimit - elapsedSeconds;
+
+            if (remainingSeconds >= 0)
+            {
+                // Update the timer text
+                std::stringstream timerStream;
+                timerStream << "Time: " << remainingSeconds;
+                timerText.setString(timerStream.str());
+            }
+            else
+            {
+                // Time's up, reset the ball position and stop the movement
+                ball.setPosition(spawnPosition);
+                spacePressed = false;
+                ballMoving = false;
+                timerStarted = false;
+
+                // Reset the score
+                score = 0;
+
+                // Update the score text
+                std::stringstream ss;
+                ss << "Score: " << score;
+                scoreText.setString(ss.str());
+
+                confinedToArea = true; // Ball is confined to the restricted area
             }
         }
         else
@@ -244,6 +303,7 @@ int main()
             }
         }
 
+        // Update the positions of the rectangles
         rectangle.setPosition(rectPosition);
         rectangle2.setPosition(rect2Position);
         rectangle3.setPosition(rect3Position);
@@ -255,8 +315,8 @@ int main()
         window.draw(rectangle2);
         window.draw(rectangle3);
         window.draw(rectangle4);
-        scoreText.setFillColor(sf::Color::Black); // Set the score text color to black
-        window.draw(scoreText); // Draw the score text after clearing the window
+        window.draw(scoreText);
+        window.draw(timerText);
         window.display();
     }
 
