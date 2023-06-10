@@ -1,3 +1,4 @@
+debug/ball.o
 debug/barricadem.o
 debug/game.o
 debug/hud.o
@@ -6,5 +7,5 @@ debug/main.o
 debug/moveable.o
 debug/pitch.o
 debug/player.o
-debug/plyer.o
+debug/ball.o
 debug/timec.o
