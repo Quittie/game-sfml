@@ -2,11 +2,11 @@
 #define GAME_H
 
 #include "barricadem.h"
-#include "hud.h"
 #include "immoveable.h"
 #include "moveable.h"
 #include "player.h"
-
+#include "Ball.h"
+#include "ImmoveableCounter.h"
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -20,43 +20,35 @@ class Game
 public:
     Game();
     virtual ~Game();
-
-    void add(const BarricadeM &object);
-    void addI(const Immoveable &object);
-    void addM(const Moveable &object);
-    void addH(const hud &object);
-    void showM();
-    void show();
-    void showI();
-    bool isWindowOpen();
-    void updating(Player &p);
-    void rendering();
-    void events(Player &p);
-    sf::RenderWindow *getwindow();
-    BarricadeM get(int number);
-    void checkChances();
-    void delHeart();
-    void increaseScore();
-    bool isGameFinished();
+    void update(float dt);
+    void render();
+    bool running() const;
+    void pollEvents();
 
 private:
-    int time
-    int _chances = 9;
     void variablesInit();
     void windowInit();
-    void shapeInit();
-    int _score=0;
-    Player* player;
+    void playerInit();
+    void barricadesInit();
+    bool reset = false;
+    Immoveable *pitch;
+    Player *player;
+    Ball *ball;
+    Immoveable *gate;
     sf::RenderWindow *window;
     sf::RectangleShape shape;
-    sf::Event event;
+    sf::Event sfmlEvent;
     sf::Clock _clock;
     sf::Time _frameTime;
-    std::vector<BarricadeM> _object;
-    std::vector<std::unique_ptr<Immoveable>> _objectI; //unique pointers
-    std::vector<std::unique_ptr<Moveable>> _objectM;
-    std::vector<std::unique_ptr<hud>> _objectH;
-
+    std::vector<std::unique_ptr<Barricade>> barricades;
+    ImmoveableCounter *goals;
+    ImmoveableCounter * attempts;
+    ImmoveableCounter *hearts;
+    void ballInit();
+    void updateCollision();
+    void resetGame();
+    int score = 0;
 };
 
 #endif // GAME_H
+

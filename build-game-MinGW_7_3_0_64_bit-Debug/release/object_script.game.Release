@@ -3,6 +3,7 @@ release/barricadem.o
 release/game.o
 release/hud.o
 release/immoveable.o
+release/immoveablecounter.o
 release/main.o
 release/moveable.o
 release/pitch.o

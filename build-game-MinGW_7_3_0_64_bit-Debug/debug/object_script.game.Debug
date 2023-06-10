@@ -3,6 +3,7 @@ debug/barricadem.o
 debug/game.o
 debug/hud.o
 debug/immoveable.o
+debug/immoveablecounter.o
 debug/main.o
 debug/moveable.o
 debug/pitch.o
