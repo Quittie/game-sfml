@@ -1,33 +1,32 @@
 #include <memory>
 #include "ImmoveableCounter.h"
 
-ImmoveableCounter::ImmoveableCounter(const std::string &source1,const std::string &source2, const std::vector<float> &position,
+ImmoveableCounter::ImmoveableCounter(const std::string &source1, const std::vector<float> &position,
                                      const std::vector<float> &size, int counter) {
 
-    sf::Texture texture;
-    if (!texture.loadFromFile(source1)) {
-        // Error handling if the texture fails to load
-    }
-
-    // TODO:
     float x = position[0];
-    for (int i = 0; i < counter; i++) {
-        Immoveable immoveableObj({x, position[1]}, size, texture);
+    _counter = counter;
+    _startingCounter = counter;
+    for (int i = 0; i < _counter; i++) {
+        _immoveables.push_back(Immoveable(source1, {x,position[1]}, size));
         x = x + size[0];
-        _immoveables.push_back(immoveableObj);
     }
 }
 
 int ImmoveableCounter::getCounter() const {
-    return counter;
-}
-
-void ImmoveableCounter::setCounter(int newCounter) {
-    ImmoveableCounter::counter = newCounter;
+    return _counter;
 }
 
 void ImmoveableCounter::render(sf::RenderTarget *window) {
-    for (auto immoveable: this->_immoveables) {
-        immoveable.render(window);
+    for (int i = 0; i < _counter; ++i) {
+        _immoveables[i].render(window);
     }
+}
+
+void ImmoveableCounter::decreaseCounter() {
+    this->_counter--;
+}
+
+void ImmoveableCounter::reset() {
+    this->_counter = _startingCounter;
 }

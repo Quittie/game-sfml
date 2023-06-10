@@ -18,9 +18,13 @@ Game::Game() {
     this->barricadesInit();
     this->ballInit();
     this->gate = new Immoveable("bramka.png",{1820, 390},{100, 300});
-    this->hearts = new ImmoveableCounter("serce.png"," serce.png",{0,0},{100,100}, 3);
-    //        this->attempts = new ImmoveableCounter("../Assets/serce.png","../Assets/serce.png",{400,0},{100,100}, 3);
-    //        this->goals = new ImmoveableCounter("../Assets/serce.png","../Assets/serce.png",{800,0},{100,100}, 3);
+    this->hearts = new ImmoveableCounter("heart.png",{0,0},{100,100}, 3);
+    this->attempts = new ImmoveableCounter("ball3.png",{400,0},{100,100}, 3);
+    this->goals = new CounterWithText("ball2.png", {800, 0}, {100, 100}, 0);
+    this->time = new CounterWithText("clock.png", {1700, 0}, {100, 100}, 20);
+    this->penaltyArea = new Immoveable({1720, 390},{200, 300});
+    this->playerArea = new Immoveable({0, 0},{600, 1080});
+    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "player.png");
 }
 
 Game::~Game()
@@ -28,14 +32,14 @@ Game::~Game()
     delete this->window;
 }
 
-void Game::update(float dt)
+void Game::update(bool &keyPressed)
 {
-    //    if(attempts->getCounter() == 3) {
-    //        hearts->setCounter(hearts->getCounter()-1);
-    //        if(hearts->getCounter() == 0) {
-    //            // TODO: gameOver();
-    //        }
-    //    }
+    elapsed = clock.getElapsedTime();
+    if (elapsed.asSeconds() >= 1) {
+        this->goalkeeper->update(this->penaltyArea->getSize(), penaltyArea->getSprite().getPosition());
+        this->time->decreaseCounter();
+        clock.restart();
+    }
     if(reset) {
         resetGame();
         reset = false;
@@ -45,13 +49,22 @@ void Game::update(float dt)
     for (const auto &barricade: this->barricades) {
         barricade->update(this->window);
     }
-    this->updateCollision();
+    this->updateCollision(keyPressed);
     this->ball->update(this->window);
+    if(attempts->getCounter() == -1 || this->time->getCounter() < 0) {
+        hearts->decreaseCounter();
+        reset = true;
+        if(hearts->getCounter() == 0) {
+            // TODO: gameOver();
+        }
+    }
 }
 
 void Game::resetGame() {
     this->ball->reset();
     this->player->reset();
+    this->attempts->reset();
+    this->time->reset();
 }
 
 void Game::render()
@@ -65,8 +78,12 @@ void Game::render()
     this->ball->render(this->window);
     this->gate->render(this->window);
     this->hearts->render(this->window);
-    //    this->attempts->render(this->window);
-    //    this->goals->render(this->window);
+    this->attempts->render(this->window);
+    this->goals->render(this->window);
+    this->time->render(this->window);
+    this->penaltyArea->render(this->window);
+    this->playerArea->render(this->window);
+    this->goalkeeper->render(this->window);
     this->window->display();
 }
 
@@ -101,7 +118,7 @@ void Game::pollEvents() {
 }
 
 void Game::playerInit() {
-    this->player = new Player({200, 540}, {50, 100}, "player.png", 10);
+    this->player = new Player({200, 540}, {100, 100}, "player.png", 10);
 }
 
 void Game::barricadesInit() {
@@ -127,8 +144,9 @@ void Game::ballInit() {
     this->ball = new Ball({400,540}, {1,1}, "ball.png",0);
 }
 
-void Game::updateCollision() {
+void Game::updateCollision(bool& keyPressed) {
 
+    // barricades - ball
     for (const auto &barricade: this->barricades) {
         if(this->ball->getShape().getGlobalBounds().intersects(barricade->getRectangleShape().getGlobalBounds())) {
             sf::Vector2f ballCenter = ball->getShape().getPosition() + sf::Vector2f(ball->getShape().getRadius(), ball->getShape().getRadius());
@@ -148,31 +166,63 @@ void Game::updateCollision() {
         }
     }
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) &&
-        this->ball->getShape().getGlobalBounds().intersects(this->player->getSprite().getGlobalBounds())) {
-        float deltaX = ball->getShape().getPosition().x - this->player->getSprite().getPosition().x;
-        float deltaY = ball->getShape().getPosition().y - this->player->getSprite().getPosition().y;
-        float kickAngleRad = -std::atan2(deltaY, deltaX);
-        float velocityX = 20 * std::cos(kickAngleRad);
-        float velocityY = -20 * std::sin(kickAngleRad);
-        ball->kick(velocityX, velocityY);
+    // ball - player
+    if(this->ball->getShape().getGlobalBounds().intersects(this->player->getSprite().getGlobalBounds())) {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && keyPressed) {
+            float deltaX = ball->getShape().getPosition().x - this->player->getSprite().getPosition().x;
+            float deltaY = ball->getShape().getPosition().y - this->player->getSprite().getPosition().y;
+            float kickAngleRad = -std::atan2(deltaY, deltaX);
+            float velocityX = 20 * std::cos(kickAngleRad);
+            float velocityY = -20 * std::sin(kickAngleRad);
+            ball->kick(velocityX, velocityY);
+            this->attempts->decreaseCounter();
+            keyPressed = false;
+        }
+    } else {
+        keyPressed = true;
     }
 
-    // Sprawdzenie kolizji piłki z bramką
+    // ball - gate
     sf::FloatRect ballBounds = ball->getShape().getGlobalBounds();
     sf::FloatRect gateBounds = gate->getSprite().getGlobalBounds();
-
-    // Sprawdzenie czy piłka przecina bramkę pod kątem pionowym
     if (ballBounds.top + ballBounds.height >= gateBounds.top &&
         ballBounds.top <= gateBounds.top + gateBounds.height) {
-        // Sprawdzenie czy piłka przecina bramkę pod kątem poziomym
         if (ballBounds.left <= gateBounds.left + gateBounds.width &&
             ballBounds.left + ballBounds.width >= gateBounds.left) {
-            // Piłka wpadła do bramki
-
-            score++;
-            std::cout << "Goal!!! Ypur current score: " << score << std::endl;
-            reset = true;
+            this->goals->increaseCounter();
+            std::cout << "Piłka wpadła do bramki!" << std::endl;
+                    reset = true;
         }
+    }
+
+    // player - player area
+    checkPlayerArea();
+
+    // ball - goalkeeper
+    if(this->ball->getShape().getGlobalBounds().intersects(goalkeeper->getRectangleShape().getGlobalBounds())) {
+        sf::Vector2f ballCenter = ball->getShape().getPosition() + sf::Vector2f(ball->getShape().getRadius(), ball->getShape().getRadius());
+        sf::Vector2f rectangleCenter = goalkeeper->getRectangleShape().getPosition() + 0.5f * goalkeeper->getRectangleShape().getSize();
+
+        // Obliczenie wektora normalnego do powierzchni prostokąta
+        sf::Vector2f normalVector = ballCenter - rectangleCenter;
+
+        // Normalizacja wektora normalnego
+        float length = std::sqrt(normalVector.x * normalVector.x + normalVector.y * normalVector.y);
+        normalVector /= length;
+
+        // Obliczenie kierunku odbicia
+        sf::Vector2f reflectionDirection = 2.f * (ball->getBallVelocity().x * normalVector.x + ball->getBallVelocity().y * normalVector.y) * normalVector - ball->getBallVelocity();
+
+        ball->kick(reflectionDirection.x,reflectionDirection.y);
+    }
+
+}
+
+void Game::checkPlayerArea() {
+    float playerX = player->getSprite().getPosition().x;
+    float maximumX = playerArea->getSize()[0];
+
+    if(playerX > maximumX) {
+        player->updatePosition(maximumX, player->getSprite().getPosition().y);
     }
 }

@@ -5,7 +5,7 @@ Player::Player(const std::vector<float> &position, const std::vector<float> &siz
 {
     loadTexture(source);
     loadSprite();
-} //Player contructor
+}
 
 void Player::updateInput() {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -24,7 +24,7 @@ void Player::updateInput() {
     {
         this->_sprite.move(0.0f, this->_speed);
     }
-} // Checks if key was pressend and move in a specified direction
+}
 
 void Player::updateWindowBoundsCollision(sf::RenderTarget *target) {
     if(this->_sprite.getGlobalBounds().left <= 0.f)
@@ -72,3 +72,8 @@ void Player::reset() {
     _position[1] = _startingPosition[1];
     _sprite.setPosition(this->_position[0], this->_position[1]);
 }
+
+void Player::updatePosition(float x, float y) {
+    _sprite.setPosition(x,y);
+}
+

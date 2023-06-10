@@ -7,6 +7,9 @@
 #include "player.h"
 #include "Ball.h"
 #include "ImmoveableCounter.h"
+#include "CounterWithText.h"
+#include "Goalkeeper.h"
+
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -20,7 +23,7 @@ class Game
 public:
     Game();
     virtual ~Game();
-    void update(float dt);
+    void update(bool &keyPressed);
     void render();
     bool running() const;
     void pollEvents();
@@ -35,19 +38,23 @@ private:
     Player *player;
     Ball *ball;
     Immoveable *gate;
+    Immoveable *penaltyArea;
+    Immoveable *playerArea;
+    Goalkeeper *goalkeeper;
     sf::RenderWindow *window;
-    sf::RectangleShape shape;
     sf::Event sfmlEvent;
-    sf::Clock _clock;
-    sf::Time _frameTime;
     std::vector<std::unique_ptr<Barricade>> barricades;
-    ImmoveableCounter *goals;
-    ImmoveableCounter * attempts;
+    CounterWithText *goals;
+    CounterWithText *time;
+    ImmoveableCounter *attempts;
     ImmoveableCounter *hearts;
+    sf::Clock clock;
+    sf::Time elapsed;
     void ballInit();
-    void updateCollision();
+    void updateCollision(bool& keyPressed);
     void resetGame();
-    int score = 0;
+
+    void checkPlayerArea();
 };
 
 #endif // GAME_H

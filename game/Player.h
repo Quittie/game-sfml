@@ -19,6 +19,8 @@ public:
 
     void reset();
 
+    void updatePosition(float x, float y);
+
 private:
     sf::Sprite _sprite;
 
