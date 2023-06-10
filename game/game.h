@@ -12,6 +12,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <iostream>
 #include <vector>
@@ -28,7 +29,9 @@ public:
     bool running() const;
     void pollEvents();
 
+
 private:
+    bool add = true;
     void variablesInit();
     void windowInit();
     void playerInit();
@@ -53,6 +56,7 @@ private:
     sf::Text score;
     sf::Clock clock;
     sf::Time elapsed;
+    sf::Music music;
     void ballInit();
     void updateCollision(bool& keyPressed);
     void resetGame();
@@ -62,6 +66,16 @@ private:
     void showResults();
 
     void createResults();
+
+    void loadMusic();
+
+    void stopMusic();
+
+    void increaseLevel1();
+
+    void increaseLevel2();
+
+
 
 
 };

@@ -4,6 +4,7 @@
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <iostream>
 #include <vector>
@@ -27,6 +28,8 @@ Game::Game() {
     this->playerArea = new Immoveable({0, 0},{600, 1080});
     this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "player.png");
     createResults();
+    loadMusic();
+
 }
 
 Game::~Game()
@@ -73,8 +76,11 @@ void Game::render()
 {
     this->window->clear();
     if(deathscreen == false)
-    {   this->pitch->render(this->window);
+    {
+        loadMusic();
+        this->pitch->render(this->window);
         this->player->render(this->window);
+
         for (const auto &barricade: this->barricades) {
             barricade->render(this ->window);
         }
@@ -83,6 +89,12 @@ void Game::render()
         this->hearts->render(this->window);
         this->attempts->render(this->window);
         this->goals->render(this->window);
+        if(add==true&&goals->getCounter()==3)
+        {
+            increaseLevel1();
+            add = false;
+
+        }
         this->time->render(this->window);
         this->penaltyArea->render(this->window);
         this->playerArea->render(this->window);
@@ -90,6 +102,7 @@ void Game::render()
     }
     else
     {
+        stopMusic();
         this->screen->render(this->window);
         showResults();
     }
@@ -255,5 +268,38 @@ void Game::showResults()
 {
     score.setString(std::to_string(goals->getCounter()));
     this->window->draw(score);
+
+}
+
+void Game::loadMusic()
+{
+    if (!music.openFromFile("soccermusic.wav")) {
+        std::cout << "Asd" << std::endl;
+        // Obsługa błędu - nie można załadować pliku
+    }
+    music.setLoop(true);
+    music.setVolume(100);
+    music.play();
+
+}
+
+void Game::stopMusic()
+{
+    music.stop();
+}
+
+void Game::increaseLevel1()
+{
+    Barricade b9({750, 50}, {40, 210}, {103, 35, 0}, 3, false);
+    Barricade b10({550, 524}, {40, 170}, {103, 35, 0}, 2, false);
+    Barricade b11({370, 124}, {40, 350}, {103, 35, 0}, 2, true);
+
+    barricades.push_back(std::make_unique<Barricade>(b9));
+    barricades.push_back(std::make_unique<Barricade>(b10));
+    barricades.push_back(std::make_unique<Barricade>(b11));
+
+}
+void Game::increaseLevel2()
+{
 
 }

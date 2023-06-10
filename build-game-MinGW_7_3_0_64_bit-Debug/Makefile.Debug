@@ -296,7 +296,24 @@ debug/barricadem.o: ../game/barricadem.cpp ../game/barricadem.h \
 		../game/Ball.h \
 		../game/ImmoveableCounter.h \
 		../game/CounterWithText.h \
-		../game/Goalkeeper.h
+		../game/Goalkeeper.h \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/InputSoundFile.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Export.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Listener.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Music.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundStream.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundSource.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/AlResource.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/OutputSoundFile.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Sound.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundBuffer.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundBufferRecorder.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundRecorder.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileFactory.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\barricadem.o ..\game\barricadem.cpp
 
 debug/counterwithtext.o: ../game/counterwithtext.cpp ../game/CounterWithText.h \
@@ -459,7 +476,24 @@ debug/game.o: ../game/game.cpp ../game/game.h \
 		../game/Ball.h \
 		../game/ImmoveableCounter.h \
 		../game/CounterWithText.h \
-		../game/Goalkeeper.h
+		../game/Goalkeeper.h \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/InputSoundFile.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Export.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Listener.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Music.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundStream.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundSource.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/AlResource.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/OutputSoundFile.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Sound.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundBuffer.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundBufferRecorder.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundRecorder.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileFactory.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\game.o ..\game\game.cpp
 
 debug/goalkeeper.o: ../game/goalkeeper.cpp ../game/Goalkeeper.h \
@@ -778,7 +812,24 @@ debug/main.o: ../game/main.cpp ../game/moveable.h \
 		../game/Ball.h \
 		../game/ImmoveableCounter.h \
 		../game/CounterWithText.h \
-		../game/Goalkeeper.h
+		../game/Goalkeeper.h \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/InputSoundFile.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Export.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Listener.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Music.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundStream.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundSource.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/AlResource.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/OutputSoundFile.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/Sound.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundBuffer.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundBufferRecorder.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundRecorder.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileFactory.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileFactory.inl \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileReader.hpp \
+		C:/SFML/SFML-2.5.1/include/SFML/Audio/SoundFileWriter.hpp
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\game\main.cpp
 
 debug/moveable.o: ../game/moveable.cpp C:/SFML/SFML-2.5.1/include/SFML/Window.hpp \
