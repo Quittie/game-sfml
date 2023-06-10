@@ -15,3 +15,13 @@ public:
     void render(sf::RenderTarget* target);
 
     const sf::RectangleShape &getRectangleShape() const;
+
+private:
+    sf::RectangleShape _rectangleShape;
+    void moveBarricade(sf::RenderTarget *target);
+    bool movingUp;
+
+    const void loadTexture(const std::string &source);
+};
+
+#endif // BARRICADEM_H
