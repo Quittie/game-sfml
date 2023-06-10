@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        ball.cpp \
         barricadem.cpp \
         game.cpp \
         hud.cpp \
@@ -12,7 +13,7 @@ SOURCES += \
         moveable.cpp \
         pitch.cpp \
         player.cpp \
-        plyer.cpp \
+        ball.cpp \
         timec.cpp
 
 
@@ -28,6 +29,7 @@ CONFIG(debug, debug|release){
 HEADERS += \
     Player.h \
     TimeC.h \
+    ball.h \
     barricadem.h \
     game.h \
     hud.h \
@@ -35,7 +37,7 @@ HEADERS += \
     moveable.h \
     pitch.h \
     pitch.h \
-    plyer.h
+    ball.h
 SOURCES +=
 fiutbol.png
 trawka.png
