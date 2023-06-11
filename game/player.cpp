@@ -10,15 +10,61 @@ Player::Player(const std::vector<float> &position, const std::vector<float> &siz
 
 void Player::animate(sf::Time &elapsed)
 {
-
+    float dt = elapsed.asSeconds();
+    if(dt>0.1&&dt<0.5)
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            sf::IntRect texturerect(1380, 1200, 460, 600);
+            this->_sprite.setTextureRect(texturerect);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            sf::IntRect texturerect(920, 600, 460, 600);
+            this->_sprite.setTextureRect(texturerect);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            sf::IntRect texturerect(920, 1800, 460, 600);
+            this->_sprite.setTextureRect(texturerect);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            sf::IntRect texturerect(920, 0, 460, 590);
+            this->_sprite.setTextureRect(texturerect);
+        }
+    }
+    if(dt>=0.5&&dt<1)
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            sf::IntRect texturerect(460, 1200, 460, 600);
+            this->_sprite.setTextureRect(texturerect);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            sf::IntRect texturerect(0, 600, 460, 600);
+            this->_sprite.setTextureRect(texturerect);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            sf::IntRect texturerect(0, 1800, 460, 600);
+            this->_sprite.setTextureRect(texturerect);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            sf::IntRect texturerect(0, 0, 460, 590);
+            this->_sprite.setTextureRect(texturerect);
+        }
+    }
 }
 
 void Player::updateInput() {
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         this->_sprite.move(-this->_speed, 0.0f);
-        sf::IntRect texturerect(460, 1200, 460, 600);
-        this->_sprite.setTextureRect(texturerect);
+//        sf::IntRect texturerect(460, 1200, 460, 600);
+//        this->_sprite.setTextureRect(texturerect);
     }
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {

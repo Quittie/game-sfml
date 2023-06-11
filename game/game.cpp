@@ -54,6 +54,7 @@ void Game::update(bool &keyPressed)
     }
     this->pollEvents();
     this->player->update(this->window);
+    this->player->animate(elapsed);
     for (const auto &barricade: this->barricades) {
         barricade->update(this->window);
     }
@@ -231,7 +232,7 @@ void Game::updateCollision(bool& keyPressed) {
         if (ballBounds.left <= gateBounds.left + gateBounds.width &&
             ballBounds.left + ballBounds.width >= gateBounds.left) {
             this->goals->increaseCounter();
-            std::cout << "Piłka wpadła do bramki!" << std::endl;
+            std::cout << "Goaaaal!" << std::endl;
                     reset = true;
         }
     }

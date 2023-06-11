@@ -21,7 +21,7 @@ public:
 
     void updatePosition(float x, float y);
 
-    void animate();
+    void animate(sf::Time &elapsed);
 
 private:
     sf::Sprite _sprite;
