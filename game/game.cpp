@@ -14,58 +14,61 @@
 Game::Game() {
     std::cout << "Let's start the game!" << std::endl;
     this->variablesInit();
-    this->disp = new Immoveable("mokey.png");
-    this->screen = new Immoveable("screen.png");
-    this->pitch = new Immoveable("grass.png", {0, 0}, {1920, 1050});
-    this->windowInit();
-    this->playerInit();
-    this->barricadesInit();
-    this->ballInit();
-    this->gate = new Immoveable("bramka.png",{1820, 390},{100, 300});
-    this->hearts = new ImmoveableCounter("heart.png",{0,0},{100,100}, 3);
-    this->attempts = new ImmoveableCounter("ball3.png",{400,0},{100,100}, 3);
-    this->goals = new CounterWithText("ball2.png", {800, 0}, {100, 100}, 0);
-    this->time = new CounterWithText("clock.png", {1700, 0}, {100, 100}, 20);
-    this->penaltyArea = new Immoveable({1720, 390},{200, 300});
-    this->playerArea = new Immoveable({0, 0},{600, 1080});
-    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "mokey.png");
-    createSign();
-    createResults();
-    loadMusic();
-    loadTrumpet();
-
+    this->screen = new Immoveable("screen.png"); //"screen" object of type "Immoveable" initialised - it will appear once the game is finished
+    this->pitch = new Immoveable("grass.png", {0, 0}, {1920, 1050}); //"pitch" object of type "Immoveable" initialised
+    this->windowInit(); //game window initialised
+    this->playerInit(); //player initialised
+    this->barricadesInit(); //barricades initialised
+    this->ballInit(); //ball initialised
+    this->gate = new Immoveable("bramka.png",{1820, 390},{100, 300}); //"pitch" object of type "Immoveable" initialised with given parameters
+    this->hearts = new ImmoveableCounter("heart.png",{0,0},{100,100}, 3); //"hearts" object of type "ImmoveableCounter" initialised with given parameters
+    this->attempts = new ImmoveableCounter("ball3.png",{400,0},{100,100}, 3); //"attempts" object of type "ImmoveableCounter" initialised with given parameters
+    this->goals = new CounterWithText("ball2.png", {800, 0}, {100, 100}, 0); //"goals" object of type "CounterWithText" initialised with given parameters
+    this->time = new CounterWithText("clock.png", {1700, 0}, {100, 100}, 20); //"attempts" object of type "CounterWithText" initialised with given parameters
+    this->penaltyArea = new Immoveable({1720, 390},{200, 300}); //"penaltyArea" object of type "Immoveable" initialised with given parameters
+    this->playerArea = new Immoveable({0, 0},{600, 1080}); //"playerArea" object of type "Immoveable" initialised with given parameters
+    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "mokey.png"); //"goalkeeper" object of type "Goalkeeper" initialised with given parameters
+    createSign(); //creates sign: "Press any key to continue the game. Your final score: "
+    createResults(); //creates sign with current score
+    loadMusic(); //loads music from a specified file and starts playing it when Game object created
+    loadTrumpet(); //loads end music from a specified file
 }
 
 Game::~Game()
 {
-    delete this->window;
+    delete this->window; // Game class destructor
 }
 
-void Game::update(bool &keyPressed)
+void Game::update(bool &keyPressed) //updates game, keyPressed prevents player from losing chances by holding the space bar
 {
-    elapsed = clock.getElapsedTime();
-    if (elapsed.asSeconds() >= 1) {
-        this->goalkeeper->update(this->penaltyArea->getSize(), penaltyArea->getSprite().getPosition());
-        this->time->decreaseCounter();
-        clock.restart();
+    elapsed = clock.getElapsedTime(); //takes time parameters since the last restart of the clock
+    if (elapsed.asSeconds() >= 1) //converts time into seconds and compares with 1 second to handle timer
+    {
+        this->goalkeeper->update(this->penaltyArea->getSize(), penaltyArea->getSprite().getPosition()); //updates goalkeeper every second
+        this->time->decreaseCounter(); //decreases time of the round
+        clock.restart(); //restarts the clock
     }
-    if(reset) {
-        resetGame();
-        reset = false;
+    if(reset) //checks if object positions need to be reset
+    {
+        resetGame(); //resets objects
+        reset = false; //change the value of the flag
     }
-    this->pollEvents();
-    this->player->update(this->window);
-    this->player->animate(elapsed);
-    for (const auto &barricade: this->barricades) {
-        barricade->update(this->window);
+    this->pollEvents(); //checks if game window needs to be closed
+    this->player->update(this->window); //updates current state of the player
+    this->player->animate(elapsed); //animates the player in respect to elapsed time
+    for (const auto &barricade: this->barricades)//traverses the vector of barricades
+    {
+        barricade->update(this->window); //updates current state of the barricades
     }
-    this->updateCollision(keyPressed);
-    this->ball->update(this->window);
-    if(attempts->getCounter() == -1 || this->time->getCounter() < 0) {
-        hearts->decreaseCounter();
-        reset = true;
-        if(hearts->getCounter() == 0) {
-            deathscreen = true;
+    this->updateCollision(keyPressed); //handles collisions beetween objects
+    this->ball->update(this->window); //updates ball state
+    if(attempts->getCounter() == -1 || this->time->getCounter() < 0) //checks if player is out of chances of time
+    {
+        hearts->decreaseCounter(); //decreases number of hearts by one
+        reset = true; //switches the flag to true
+        if(hearts->getCounter() == 0) //checks if the player is out of hearts
+        {
+            deathscreen = true; //switches the flag to true in order to display the deathscreen
         }
     }
 }
@@ -94,7 +97,7 @@ void Game::render()
         this->hearts->render(this->window);
         this->attempts->render(this->window);
         this->goals->render(this->window);
-        if(add1==true&&goals->getCounter()==2)
+        if(add1==true&&goals->getCounter()==3)
         {
             increaseLevel1();
             add1 = false;
@@ -124,10 +127,8 @@ void Game::render()
     if(sfmlEvent.key.code == sf::Keyboard::Enter)
     {
 
-        this->disp->render(this->window);
         showSign();
         showResults();
-
     }
     this->window->display();
     }
@@ -159,6 +160,8 @@ void Game::pollEvents() {
             if(this->sfmlEvent.key.code == sf::Keyboard::Escape)
                 this->window->close();
             break;
+        default:
+            break;
         }
     }
 }
@@ -168,22 +171,14 @@ void Game::playerInit() {
 }
 
 void Game::barricadesInit() {
-    Barricade b1({700, 50}, {40, 200}, {103, 35, 0}, 3, true);
-    Barricade b2({800, 524}, {40, 150}, {103, 35, 0}, 2, false);
-    Barricade b3({900, 124}, {40, 300}, {103, 35, 0}, 2, true);
-    Barricade b4({1000, 624}, {40, 100}, {103, 35, 0}, 5, false);
-//    Barricade b5({1100, 524}, {40, 250}, {103, 35, 0}, 2, true);
-//    Barricade b6({1200, 563}, {40, 220}, {103, 35, 0}, 4, false);
-//    Barricade b7({1300, 600}, {40, 420}, {103, 35, 0}, 2, true);
-//    Barricade b8({1400, 500}, {40, 150}, {103, 35, 0}, 2, true);
+    Barricade b1({1200, 50}, {50, 300}, {103, 35, 0}, 3, true);
+    Barricade b2({800, 500}, {50, 300}, {103, 35, 0}, 2, false);
+    Barricade b3({1000, 150}, {50, 300}, {103, 35, 0}, 4, true);
+
     barricades.push_back(std::make_unique<Barricade>(b1));
     barricades.push_back(std::make_unique<Barricade>(b2));
     barricades.push_back(std::make_unique<Barricade>(b3));
-    barricades.push_back(std::make_unique<Barricade>(b4));
-//    barricades.push_back(std::make_unique<Barricade>(b5));
-//    barricades.push_back(std::make_unique<Barricade>(b6));
-//    barricades.push_back(std::make_unique<Barricade>(b7));
-//    barricades.push_back(std::make_unique<Barricade>(b8));
+
 }
 
 void Game::ballInit() {
@@ -346,13 +341,13 @@ void Game::stopMusic()
 
 void Game::increaseLevel1()
 {
-    Barricade b9({1150, 50}, {40, 210}, {103, 35, 0}, 3, false);
-    Barricade b10({1000, 524}, {40, 170}, {103, 35, 0}, 2, false);
-    Barricade b11({1250, 124}, {40, 350}, {103, 35, 0}, 2, true);
+    Barricade b4({700, 100}, {40, 150}, {103, 35, 0}, 3, false);
+    Barricade b5({1100, 550}, {40, 150}, {103, 35, 0}, 2, false);
+    Barricade b6({900, 350}, {40, 150}, {103, 35, 0}, 2, true);
 
-    barricades.push_back(std::make_unique<Barricade>(b9));
-    barricades.push_back(std::make_unique<Barricade>(b10));
-    barricades.push_back(std::make_unique<Barricade>(b11));
+    barricades.push_back(std::make_unique<Barricade>(b4));
+    barricades.push_back(std::make_unique<Barricade>(b5));
+    barricades.push_back(std::make_unique<Barricade>(b6));
 
 }
 void Game::increaseLevel2()

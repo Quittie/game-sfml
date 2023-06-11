@@ -31,6 +31,7 @@ public:
 
 
 private:
+
     bool play = true;
     bool add1 = true;
     bool add2 = true;
@@ -44,7 +45,7 @@ private:
     Immoveable *pitch;
     Player *player;
     Ball *ball;
-    Immoveable *disp;
+
     Immoveable *screen;
     Immoveable *gate;
     Immoveable *penaltyArea;
