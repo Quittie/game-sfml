@@ -7,22 +7,36 @@ Player::Player(const std::vector<float> &position, const std::vector<float> &siz
     loadSprite();
 }
 
+
+void Player::animate(sf::Time &elapsed)
+{
+
+}
+
 void Player::updateInput() {
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         this->_sprite.move(-this->_speed, 0.0f);
+        sf::IntRect texturerect(460, 1200, 460, 600);
+        this->_sprite.setTextureRect(texturerect);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
         this->_sprite.move(this->_speed, 0.0f);
+        sf::IntRect texturerect(920, 600, 460, 600);
+        this->_sprite.setTextureRect(texturerect);
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         this->_sprite.move(0.0f, -this->_speed);
+        sf::IntRect texturerect(0, 1810, 460, 600);
+        this->_sprite.setTextureRect(texturerect);
     }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         this->_sprite.move(0.0f, this->_speed);
+        sf::IntRect texturerect(0, 0, 460, 590);
+        this->_sprite.setTextureRect(texturerect);
     }
 }
 
@@ -58,7 +72,11 @@ void Player::loadTexture(const std::string& source) {
 }
 
 void Player::loadSprite() {
+    sf::IntRect textureRect(460, 0, 450, 590);
+
     _sprite.setTexture(_texture);
+    _sprite.setTextureRect(textureRect);
+
     _sprite.setScale(_size[0] / _sprite.getGlobalBounds().width, _size[1] / _sprite.getGlobalBounds().height);
     _sprite.setPosition(this->_position[0], this->_position[1]);
 }

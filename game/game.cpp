@@ -77,6 +77,7 @@ void Game::resetGame() {
 
 void Game::render()
 {
+
     this->window->clear();
     if(deathscreen == false)
     {
@@ -98,7 +99,7 @@ void Game::render()
             add1 = false;
 
         }
-        if(add2==true&&goals->getCounter()==3)
+        if(add2==true&&goals->getCounter()==5)
         {
             increaseLevel2();
             add2 = false;
@@ -117,12 +118,15 @@ void Game::render()
     }
     if(sfmlEvent.key.code == sf::Keyboard::Enter)
     {
+
         this->disp->render(this->window);
         showSign();
         showResults();
+
     }
     this->window->display();
-}
+    }
+
 
 void Game::variablesInit()
 {
@@ -155,7 +159,7 @@ void Game::pollEvents() {
 }
 
 void Game::playerInit() {
-    this->player = new Player({200, 540}, {100, 100}, "player.png", 10);
+    this->player = new Player({200, 540}, {100, 100}, "pngwing.png", 10);
 }
 
 void Game::barricadesInit() {
@@ -276,7 +280,7 @@ void Game::createResults()
     score.setFont(*font);
     score.setPosition(900, 700);
     score.setCharacterSize(100);
-    score.setFillColor(sf::Color::Cyan);
+    score.setFillColor(sf::Color::Black);
 }
 
 void Game::showResults()
@@ -289,7 +293,8 @@ void Game::showResults()
 
 void Game::createSign()
 {
-    std::string signS =  "\t  Move the mouse \n  to continue the game \n \n   Your current score: ";
+
+    std::string signS =  "\t     Press any key \n  to continue the game \n \n   Your current score: ";
     sign.setString(signS);
     auto font = new sf::Font;
     if (!font->loadFromFile("ourland.ttf")) {

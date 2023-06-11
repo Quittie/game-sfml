@@ -21,10 +21,10 @@ public:
 
     void updatePosition(float x, float y);
 
-private:
-    sf::Sprite _sprite;
+    void animate();
 
 private:
+    sf::Sprite _sprite;
     void loadTexture(const std::string& source);
     void loadSprite();
     void updateInput();

@@ -49,6 +49,7 @@ arial.ttf
 ourland.ttf
 screen.png
 mokey.png
+pngwing.png
 soccermusic.wav
 
 
