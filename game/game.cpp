@@ -73,18 +73,19 @@ void Game::update(bool &keyPressed) //updates game, keyPressed prevents player f
     }
 }
 
-void Game::resetGame() {
+void Game::resetGame() //resets the game
+{
     this->ball->reset();
     this->player->reset();
     this->attempts->reset();
     this->time->reset();
 }
 
-void Game::render()
+void Game::render() //renders the game
 {
 
-    this->window->clear();
-    if(deathscreen == false)
+    this->window->clear(); //clears window
+    if(deathscreen == false) //checks if deathscreen should appear
     {
         this->pitch->render(this->window);
         this->player->render(this->window);
@@ -97,16 +98,16 @@ void Game::render()
         this->hearts->render(this->window);
         this->attempts->render(this->window);
         this->goals->render(this->window);
-        if(add1==true&&goals->getCounter()==3)
+        if(add1==true&&goals->getCounter()==3) //checks if the player scored 3
         {
-            increaseLevel1();
-            add1 = false;
+            increaseLevel1(); //increases difficulty level
+            add1 = false; //changes the flag value in order to increase level only once
 
         }
-        if(add2==true&&goals->getCounter()==5)
+        if(add2==true&&goals->getCounter()==5) //checks if the player scored 5
         {
-            increaseLevel2();
-            add2 = false;
+            increaseLevel2(); //increases difficulty level
+            add2 = false; //changes the flag value in order to increase level only once
         }
         this->time->render(this->window);
         this->penaltyArea->render(this->window);
@@ -114,23 +115,23 @@ void Game::render()
         this->goalkeeper->render(this->window);
 
     }
-    else
+    else //if deathscreen should appear
     {
-        stopMusic();
-        this->screen->render(this->window);
-        showResults();
-        if(play){
-        trumpet.play();
-        play = false;
+        stopMusic(); //stops playing musisc
+        this->screen->render(this->window); //renders deathscreen
+        showResults(); //shows final results
+        if(play) //checks if final music should be played
+        {
+            trumpet.play(); //plays final music
+            play = false; //changes the flag value in order to play music only once
         }
     }
-    if(sfmlEvent.key.code == sf::Keyboard::Enter)
+    if(sfmlEvent.key.code == sf::Keyboard::Enter) //checks if enter is pressed
     {
-
-        showSign();
-        showResults();
+        showSign(); //shows sign "Press any key to continue the game. Your final score: "
+        showResults(); //shows results
     }
-    this->window->display();
+    this->window->display(); //displays window game
     }
 
 
@@ -139,26 +140,28 @@ void Game::variablesInit()
     this->window = nullptr;
 }
 
-void Game::windowInit()
+void Game::windowInit() //initialises game window
 {
-    sf::VideoMode desktopM = sf::VideoMode::getDesktopMode();
-    this->window = new sf::RenderWindow(desktopM, "Soccer Challenge 2k23", sf::Style::Titlebar | sf::Style::Close /*| sf::Style::Fullscreen*/);
-    this->window->setFramerateLimit(60);
+    sf::VideoMode desktopM = sf::VideoMode::getDesktopMode(); //gets information about screen height and width
+    this->window = new sf::RenderWindow(desktopM, "Soccer Challenge 2k23", sf::Style::Titlebar | sf::Style::Close); //initialises a window with a given name, screen dimensions and styles
+    this->window->setFramerateLimit(60); //sets max framerate to 60
 }
 
-bool Game::running() const {
+bool Game::running() const //checks if window is open
+{
     return this->window->isOpen();
 }
 
-void Game::pollEvents() {
+void Game::pollEvents() //hanles events
+{
     while(this->window->pollEvent(this->sfmlEvent)) {
         switch(this->sfmlEvent.type){
         case sf::Event::Closed:
-            this->window->close();
+            this->window->close(); //closes window when "close" is pressed
             break;
         case sf::Event::KeyPressed:
             if(this->sfmlEvent.key.code == sf::Keyboard::Escape)
-                this->window->close();
+                this->window->close(); //closes window when "escape" is pressed
             break;
         default:
             break;
@@ -166,23 +169,26 @@ void Game::pollEvents() {
     }
 }
 
-void Game::playerInit() {
-    this->player = new Player({200, 540}, {100, 100}, "pngwing.png", 10);
+void Game::playerInit()
+{
+    this->player = new Player({200, 540}, {100, 100}, "pngwing.png", 10); //initialises player with given parameters
 }
 
-void Game::barricadesInit() {
-    Barricade b1({1200, 50}, {50, 300}, {103, 35, 0}, 3, true);
+void Game::barricadesInit()
+{
+    Barricade b1({1200, 50}, {50, 300}, {103, 35, 0}, 3, true); //initialises 3 barricades with given parameters
     Barricade b2({800, 500}, {50, 300}, {103, 35, 0}, 2, false);
     Barricade b3({1000, 150}, {50, 300}, {103, 35, 0}, 4, true);
 
-    barricades.push_back(std::make_unique<Barricade>(b1));
+    barricades.push_back(std::make_unique<Barricade>(b1)); //pushes back 3 objects to vector of unique pointers
     barricades.push_back(std::make_unique<Barricade>(b2));
     barricades.push_back(std::make_unique<Barricade>(b3));
 
 }
 
-void Game::ballInit() {
-    this->ball = new Ball({400,540}, {1,1}, "ball.png",0);
+void Game::ballInit()
+{
+    this->ball = new Ball({400,540}, {1,1}, "ball.png",0); //initialises a Ball object with givrn parameters
 }
 
 void Game::updateCollision(bool& keyPressed) {
