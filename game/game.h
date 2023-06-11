@@ -60,6 +60,7 @@ private:
     ImmoveableCounter *hearts;
     sf::Text score;
     sf::Text sign;
+    sf::Text results;
     sf::Clock clock;
     sf::Time elapsed;
     sf::Music music;
