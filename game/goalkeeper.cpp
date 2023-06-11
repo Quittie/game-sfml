@@ -10,10 +10,10 @@ void Goalkeeper::update(std::vector<float> penaltyAreaSize, const sf::Vector2f p
     int directionX = std::rand() % 3 - 1; // -1, 0, 1
     int directionY = std::rand() % 3 - 1; // -1, 0, 1
 
-    float minX = penaltyAreaPosition.x;
-    float minY = penaltyAreaPosition.y;
-    float maxX = penaltyAreaPosition.x + penaltyAreaSize[0] - _rectangleShape.getSize().x;
-    float maxY = penaltyAreaPosition.y + penaltyAreaSize[1] - _rectangleShape.getSize().y;
+    float minX = penaltyAreaPosition.x - 50;
+    float minY = penaltyAreaPosition.y - 50;
+    float maxX = penaltyAreaPosition.x + penaltyAreaSize[0] - 100 - _rectangleShape.getSize().x;
+    float maxY = penaltyAreaPosition.y + 50 + penaltyAreaSize[1] - _rectangleShape.getSize().y;
 
     _position[0] += directionX * _speed;
     _position[1] += directionY * _speed;

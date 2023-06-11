@@ -52,5 +52,6 @@ mokey.png
 pngwing.png
 soccermusic.wav
 trumpet.wav
-
+goalkeeper.png
+gameover.png
 

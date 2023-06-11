@@ -13,8 +13,7 @@
 
 Game::Game() {
     std::cout << "Let's start the game!" << std::endl;
-    this->variablesInit();
-    this->screen = new Immoveable("screen.png"); //"screen" object of type "Immoveable" initialised - it will appear once the game is finished
+    this->screen = new Immoveable("gameover.png", {0, 0}, {1920, 1050}); //"screen" object of type "Immoveable" initialised - it will appear once the game is finished
     this->pitch = new Immoveable("grass.png", {0, 0}, {1920, 1050}); //"pitch" object of type "Immoveable" initialised
     this->windowInit(); //game window initialised
     this->playerInit(); //player initialised
@@ -27,9 +26,10 @@ Game::Game() {
     this->time = new CounterWithText("clock.png", {1700, 0}, {100, 100}, 20); //"attempts" object of type "CounterWithText" initialised with given parameters
     this->penaltyArea = new Immoveable({1720, 390},{200, 300}); //"penaltyArea" object of type "Immoveable" initialised with given parameters
     this->playerArea = new Immoveable({0, 0},{600, 1080}); //"playerArea" object of type "Immoveable" initialised with given parameters
-    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "mokey.png"); //"goalkeeper" object of type "Goalkeeper" initialised with given parameters
-    createSign(); //creates sign: "Press any key to continue the game. Your final score: "
-    createResults(); //creates sign with current score
+    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "goalkeeper.png"); //"goalkeeper" object of type "Goalkeeper" initialised with given parameters
+    createSign(); //creates a sign: "Press any key to continue the game. Your final score: "
+    createResults(); //creates a sign with current score
+    createFinalSign(); //creates a sign which will be shown once the game is finished
     loadMusic(); //loads music from a specified file and starts playing it when Game object created
     loadTrumpet(); //loads end music from a specified file
 }
@@ -94,6 +94,7 @@ void Game::render() //renders the game
             barricade->render(this ->window);
         }
         this->ball->render(this->window);
+        this->goalkeeper->render(this->window);
         this->gate->render(this->window);
         this->hearts->render(this->window);
         this->attempts->render(this->window);
@@ -112,7 +113,7 @@ void Game::render() //renders the game
         this->time->render(this->window);
         this->penaltyArea->render(this->window);
         this->playerArea->render(this->window);
-        this->goalkeeper->render(this->window);
+
 
     }
     else //if deathscreen should appear
@@ -120,6 +121,7 @@ void Game::render() //renders the game
         stopMusic(); //stops playing musisc
         this->screen->render(this->window); //renders deathscreen
         showResults(); //shows final results
+        showFinalSign(); //shows final sign
         if(play) //checks if final music should be played
         {
             trumpet.play(); //plays final music
@@ -133,12 +135,6 @@ void Game::render() //renders the game
     }
     this->window->display(); //displays window game
     }
-
-
-void Game::variablesInit()
-{
-    this->window = nullptr;
-}
 
 void Game::windowInit() //initialises game window
 {
@@ -188,7 +184,7 @@ void Game::barricadesInit()
 
 void Game::ballInit()
 {
-    this->ball = new Ball({400,540}, {1,1}, "ball.png",0); //initialises a Ball object with givrn parameters
+    this->ball = new Ball({400,540}, {1,1}, "ball.png",0); //initialises a Ball object with given parameters
 }
 
 void Game::updateCollision(bool& keyPressed) {
@@ -276,8 +272,6 @@ void Game::checkPlayerArea() {
 
 void Game::createResults()
 {
-
-    score.setString(std::to_string(goals->getCounter()));
     auto font = new sf::Font;
     if (!font->loadFromFile("ourland.ttf")) {
         std::cout << "Error :( " << std::endl;
@@ -289,17 +283,35 @@ void Game::createResults()
     score.setFillColor(sf::Color::Black);
 }
 
-void Game::showResults()
+void Game::showResults() //shows final results
 {
-    score.setString(std::to_string(goals->getCounter()));
-    this->window->draw(score);
+    score.setString(std::to_string(goals->getCounter())); //assigns a string converted from the goal counter to an object of type sf::Text
+    this->window->draw(score); //displays this object
+}
 
+void Game::showFinalSign()
+{
+    this->window->draw(finalSign);
+}
+
+void Game::createFinalSign()
+{
+    std::string sign = "\tYour final score is: ";
+    finalSign.setString(sign);
+    auto font = new sf::Font;
+    if (!font->loadFromFile("ourland.ttf")) {
+        std::cout << "Error :( " << std::endl;
+        // Error handling if the font fails to load
+    }
+    finalSign.setFont(*font);
+    finalSign.setPosition(350, 200);
+    finalSign.setCharacterSize(100);
+    finalSign.setFillColor(sf::Color::Black);
 }
 
 
 void Game::createSign()
 {
-
     std::string signS =  "\t     Press any key \n  to continue the game \n \n   Your current score: ";
     sign.setString(signS);
     auto font = new sf::Font;
