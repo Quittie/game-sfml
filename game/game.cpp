@@ -19,7 +19,7 @@ Game::Game() {
     this->playerInit(); //player initialised
     this->barricadesInit(); //barricades initialised
     this->ballInit(); //ball initialised
-    this->gate = new Immoveable("bramka.png",{1820, 390},{100, 300}); //"pitch" object of type "Immoveable" initialised with given parameters
+    this->gate = new Immoveable("gate.png",{1820, 390},{100, 300}); //"pitch" object of type "Immoveable" initialised with given parameters
     this->hearts = new ImmoveableCounter("heart.png",{0,0},{100,100}, 3); //"hearts" object of type "ImmoveableCounter" initialised with given parameters
     this->attempts = new ImmoveableCounter("ball3.png",{400,0},{100,100}, 3); //"attempts" object of type "ImmoveableCounter" initialised with given parameters
     this->goals = new CounterWithText("ball2.png", {800, 0}, {100, 100}, 0); //"goals" object of type "CounterWithText" initialised with given parameters
@@ -113,6 +113,11 @@ void Game::render() //renders the game
         this->time->render(this->window);
         this->penaltyArea->render(this->window);
         this->playerArea->render(this->window);
+        if(sfmlEvent.key.code == sf::Keyboard::Enter) //checks if enter is pressed
+        {
+            showSign(); //shows sign "Press any key to continue the game. Your final score: "
+            showResults(); //shows results
+        }
 
 
     }
@@ -128,11 +133,7 @@ void Game::render() //renders the game
             play = false; //changes the flag value in order to play music only once
         }
     }
-    if(sfmlEvent.key.code == sf::Keyboard::Enter) //checks if enter is pressed
-    {
-        showSign(); //shows sign "Press any key to continue the game. Your final score: "
-        showResults(); //shows results
-    }
+
     this->window->display(); //displays window game
     }
 
@@ -148,7 +149,7 @@ bool Game::running() const //checks if window is open
     return this->window->isOpen();
 }
 
-void Game::pollEvents() //hanles events
+void Game::pollEvents() //handles events
 {
     while(this->window->pollEvent(this->sfmlEvent)) {
         switch(this->sfmlEvent.type){
@@ -172,13 +173,19 @@ void Game::playerInit()
 
 void Game::barricadesInit()
 {
-    Barricade b1({1200, 50}, {50, 300}, {103, 35, 0}, 3, true); //initialises 3 barricades with given parameters
-    Barricade b2({800, 500}, {50, 300}, {103, 35, 0}, 2, false);
-    Barricade b3({1000, 150}, {50, 300}, {103, 35, 0}, 4, true);
+    Barricade b1({900, 50}, {40, 100}, {103, 35, 0}, 3, true); //initialises 3 barricades with given parameters
+    Barricade b2({800, 500}, {40, 100}, {103, 35, 0}, 2, false);
+    Barricade b3({1100, 150}, {40, 100}, {103, 35, 0}, 4, true);
+    Barricade b4({1200, 400}, {40, 100}, {103, 35, 0}, 3.5, true);
+    Barricade b5({1300, 350}, {40, 100}, {103, 35, 0}, 2, true);
+    Barricade b6({1000, 250}, {40, 100}, {103, 35, 0}, 2.5, true);
 
     barricades.push_back(std::make_unique<Barricade>(b1)); //pushes back 3 objects to vector of unique pointers
     barricades.push_back(std::make_unique<Barricade>(b2));
     barricades.push_back(std::make_unique<Barricade>(b3));
+    barricades.push_back(std::make_unique<Barricade>(b4));
+    barricades.push_back(std::make_unique<Barricade>(b5));
+    barricades.push_back(std::make_unique<Barricade>(b6));
 
 }
 
@@ -278,7 +285,7 @@ void Game::createResults()
         // Error handling if the font fails to load
     }
     score.setFont(*font);
-    score.setPosition(900, 700);
+    score.setPosition(900, 720);
     score.setCharacterSize(100);
     score.setFillColor(sf::Color::Black);
 }
@@ -304,7 +311,7 @@ void Game::createFinalSign()
         // Error handling if the font fails to load
     }
     finalSign.setFont(*font);
-    finalSign.setPosition(350, 200);
+    finalSign.setPosition(350, 600);
     finalSign.setCharacterSize(100);
     finalSign.setFillColor(sf::Color::Black);
 }
@@ -359,10 +366,18 @@ void Game::stopMusic()
 
 void Game::increaseLevel1()
 {
-    Barricade b4({700, 100}, {40, 150}, {103, 35, 0}, 3, false);
-    Barricade b5({1100, 550}, {40, 150}, {103, 35, 0}, 2, false);
-    Barricade b6({900, 350}, {40, 150}, {103, 35, 0}, 2, true);
+    Barricade b1({850, 100}, {40, 75}, {103, 35, 0}, 3, false);
+    Barricade b2({950, 550}, {40, 75}, {103, 35, 0}, 2, false);
+    Barricade b3({1050, 350}, {40, 75}, {103, 35, 0}, 2, true);
+    Barricade b4({1150, 100}, {40, 75}, {103, 35, 0}, 3, false);
+    Barricade b5({1250, 550}, {40, 75}, {103, 35, 0}, 2, false);
+    Barricade b6({1350, 350}, {40, 75}, {103, 35, 0}, 2, true);
 
+
+
+    barricades.push_back(std::make_unique<Barricade>(b1));
+    barricades.push_back(std::make_unique<Barricade>(b2));
+    barricades.push_back(std::make_unique<Barricade>(b3));
     barricades.push_back(std::make_unique<Barricade>(b4));
     barricades.push_back(std::make_unique<Barricade>(b5));
     barricades.push_back(std::make_unique<Barricade>(b6));

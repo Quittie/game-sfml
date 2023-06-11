@@ -17,8 +17,6 @@
 #include <iostream>
 #include <vector>
 
-
-
 class Game
 {
 public:
@@ -31,20 +29,18 @@ public:
 
 
 private:
-
     bool play = true;
     bool add1 = true;
     bool add2 = true;
+    bool reset = false;
+    bool deathscreen = false;
     void windowInit();
     void playerInit();
     void barricadesInit();
-    bool reset = false;
-    bool deathscreen = false;
-    bool enterpressed = true;
+
     Immoveable *pitch;
     Player *player;
     Ball *ball;
-
     Immoveable *screen;
     Immoveable *gate;
     Immoveable *penaltyArea;
@@ -64,37 +60,22 @@ private:
     sf::Time elapsed;
     sf::Music music;
     sf::Music trumpet;
+
     void ballInit();
     void updateCollision(bool& keyPressed);
     void resetGame();
-
     void showFinalSign();
-
     void createFinalSign();
-
     void checkPlayerArea();
-
     void showResults();
-
     void showSign();
-
     void createSign();
-
     void createResults();
-
     void loadMusic();
-
     void loadTrumpet();
-
     void stopMusic();
-
     void increaseLevel1();
-
     void increaseLevel2();
-
-
-
-
 };
 
 #endif // GAME_H

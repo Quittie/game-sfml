@@ -36,22 +36,18 @@ HEADERS += \
     player.h
 SOURCES +=
 ball.png
-player.png
-bramka.png
+gate.png
 grass.png
-serce.png
 clock.png
 heart.png
 ball2.png
 ball3.png
-trawka.png
-arial.ttf
-ourland.ttf
-screen.png
-mokey.png
-pngwing.png
-soccermusic.wav
-trumpet.wav
 goalkeeper.png
 gameover.png
+pngwing.png
+arial.ttf
+ourland.ttf
+soccermusic.wav
+trumpet.wav
+
 
