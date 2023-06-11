@@ -35,7 +35,6 @@ private:
     bool play = true;
     bool add1 = true;
     bool add2 = true;
-    void variablesInit();
     void windowInit();
     void playerInit();
     void barricadesInit();
@@ -60,7 +59,7 @@ private:
     ImmoveableCounter *hearts;
     sf::Text score;
     sf::Text sign;
-    sf::Text results;
+    sf::Text finalSign;
     sf::Clock clock;
     sf::Time elapsed;
     sf::Music music;
@@ -68,6 +67,10 @@ private:
     void ballInit();
     void updateCollision(bool& keyPressed);
     void resetGame();
+
+    void showFinalSign();
+
+    void createFinalSign();
 
     void checkPlayerArea();
 
