@@ -1,11 +1,10 @@
 release/ball.o
 release/barricadem.o
+release/counterwithtext.o
 release/game.o
-release/hud.o
+release/goalkeeper.o
 release/immoveable.o
+release/immoveablecounter.o
 release/main.o
 release/moveable.o
-release/pitch.o
 release/player.o
-release/ball.o
-release/timec.o

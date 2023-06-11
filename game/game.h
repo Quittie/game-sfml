@@ -2,13 +2,17 @@
 #define GAME_H
 
 #include "barricadem.h"
-#include "hud.h"
 #include "immoveable.h"
 #include "moveable.h"
 #include "player.h"
+#include "Ball.h"
+#include "ImmoveableCounter.h"
+#include "CounterWithText.h"
+#include "Goalkeeper.h"
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 #include <iostream>
 #include <vector>
@@ -20,43 +24,69 @@ class Game
 public:
     Game();
     virtual ~Game();
+    void update(bool &keyPressed);
+    void render();
+    bool running() const;
+    void pollEvents();
 
-    void add(const BarricadeM &object);
-    void addI(const Immoveable &object);
-    void addM(const Moveable &object);
-    void addH(const hud &object);
-    void showM();
-    void show();
-    void showI();
-    bool isWindowOpen();
-    void updating(Player &p);
-    void rendering();
-    void events(Player &p);
-    sf::RenderWindow *getwindow();
-    BarricadeM get(int number);
-    void checkChances();
-    void delHeart();
-    void increaseScore();
-    bool isGameFinished();
 
 private:
-    int time
-    int _chances = 9;
+    bool add1 = true;
+    bool add2 = true;
     void variablesInit();
     void windowInit();
-    void shapeInit();
-    int _score=0;
-    Player* player;
+    void playerInit();
+    void barricadesInit();
+    bool reset = false;
+    bool deathscreen = false;
+    bool enterpressed = true;
+    Immoveable *pitch;
+    Player *player;
+    Ball *ball;
+    Immoveable *disp;
+    Immoveable *screen;
+    Immoveable *gate;
+    Immoveable *penaltyArea;
+    Immoveable *playerArea;
+    Goalkeeper *goalkeeper;
     sf::RenderWindow *window;
-    sf::RectangleShape shape;
-    sf::Event event;
-    sf::Clock _clock;
-    sf::Time _frameTime;
-    std::vector<BarricadeM> _object;
-    std::vector<std::unique_ptr<Immoveable>> _objectI; //unique pointers
-    std::vector<std::unique_ptr<Moveable>> _objectM;
-    std::vector<std::unique_ptr<hud>> _objectH;
+    sf::Event sfmlEvent;
+    std::vector<std::unique_ptr<Barricade>> barricades;
+    CounterWithText *goals;
+    CounterWithText *time;
+    ImmoveableCounter *attempts;
+    ImmoveableCounter *hearts;
+    sf::Text score;
+    sf::Text sign;
+    sf::Clock clock;
+    sf::Time elapsed;
+    sf::Music music;
+    void ballInit();
+    void updateCollision(bool& keyPressed);
+    void resetGame();
+
+    void checkPlayerArea();
+
+    void showResults();
+
+    void showSign();
+
+    void createSign();
+
+    void createResults();
+
+    void loadMusic();
+
+    void stopMusic();
+
+    void increaseLevel1();
+
+    void increaseLevel2();
+
+
+
 
 };
 
 #endif // GAME_H
+

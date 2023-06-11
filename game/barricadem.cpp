@@ -9,7 +9,9 @@ Barricade::Barricade(const std::vector<float> &position, const std::vector<float
 {
     this->_rectangleShape = sf::RectangleShape(sf::Vector2f(size[0], size[1]));
     this->_rectangleShape.setPosition(sf::Vector2f(position[0], position[1]));
-    this->_rectangleShape.setFillColor(sf::Color(colour[0], colour[1], colour[2]));
+    if(!colour.empty()) {
+        this->_rectangleShape.setFillColor(sf::Color(colour[0], colour[1], colour[2]));
+    }
     this->movingUp = movingUp;
 }
 
@@ -27,7 +29,6 @@ void Barricade::moveBarricade(sf::RenderTarget *target) {
         if (_position[1] + _rectangleShape.getSize().y >= windowHeight) {
             movingUp = true;
         }
-
     }
 }
 
@@ -49,10 +50,15 @@ Barricade::Barricade(const std::vector<float> &position, const std::vector<float
     _rectangleShape.setTexture(&_texture);
 }
 
+Barricade::Barricade(const std::vector<float> &position, const std::vector<float> &size,
+                     const std::vector<sf::Uint8> &colour, float speed, const std::string &source) : Barricade::Barricade(position, size, colour, speed, true, source){
+
+}
+
 const void Barricade::loadTexture(const std::string& source) {
     if (!_texture.loadFromFile(source)) {
-        std::cout << "Gate not added" << std::endl;
+        std::cout << "Barricade not added" << std::endl;
     } else {
-        std::cout << "Gate added" << std::endl;
+        std::cout << "Barricade added" << std::endl;
     }
 }

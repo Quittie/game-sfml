@@ -19,10 +19,12 @@ public:
 
     void reset();
 
-private:
-    sf::Sprite _sprite;
+    void updatePosition(float x, float y);
+
+    void animate(sf::Time &elapsed);
 
 private:
+    sf::Sprite _sprite;
     void loadTexture(const std::string& source);
     void loadSprite();
     void updateInput();

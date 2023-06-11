@@ -6,16 +6,14 @@ CONFIG -= qt
 SOURCES += \
         ball.cpp \
         barricadem.cpp \
+    counterwithtext.cpp \
         game.cpp \
-        hud.cpp \
+    goalkeeper.cpp \
         immoveable.cpp \
+        immoveablecounter.cpp \
         main.cpp \
         moveable.cpp \
-        pitch.cpp \
         player.cpp \
-        ball.cpp \
-        timec.cpp
-
 
 INCLUDEPATH += "C:/SFML/SFML-2.5.1/include"
 LIBS += -L"C:/SFML/SFML-2.5.1/lib"
@@ -27,20 +25,31 @@ CONFIG(debug, debug|release){
 }
 
 HEADERS += \
-    Player.h \
-    TimeC.h \
     ball.h \
     barricadem.h \
+    counterwithtext.h \
     game.h \
-    hud.h \
+    goalkeeper.h \
     immoveable.h \
+    immoveablecounter.h \
     moveable.h \
-    pitch.h \
-    pitch.h \
-    ball.h
+    player.h
 SOURCES +=
-fiutbol.png
-trawka.png
 ball.png
+player.png
+bramka.png
+grass.png
+serce.png
+clock.png
+heart.png
+ball2.png
+ball3.png
+trawka.png
+arial.ttf
+ourland.ttf
+screen.png
+mokey.png
+pngwing.png
+soccermusic.wav
 
 
