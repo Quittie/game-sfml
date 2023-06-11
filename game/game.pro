@@ -51,5 +51,6 @@ screen.png
 mokey.png
 pngwing.png
 soccermusic.wav
+trumpet.wav
 
 

@@ -84,6 +84,7 @@ void Player::updateInput() {
     else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
         this->_sprite.move(0.0f, this->_speed);
+
     }
 }
 

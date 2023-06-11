@@ -31,6 +31,7 @@ public:
 
 
 private:
+    bool play = true;
     bool add1 = true;
     bool add2 = true;
     void variablesInit();
@@ -61,6 +62,7 @@ private:
     sf::Clock clock;
     sf::Time elapsed;
     sf::Music music;
+    sf::Music trumpet;
     void ballInit();
     void updateCollision(bool& keyPressed);
     void resetGame();
@@ -76,6 +78,8 @@ private:
     void createResults();
 
     void loadMusic();
+
+    void loadTrumpet();
 
     void stopMusic();
 

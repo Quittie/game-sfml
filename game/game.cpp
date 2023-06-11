@@ -16,7 +16,7 @@ Game::Game() {
     this->variablesInit();
     this->disp = new Immoveable("mokey.png");
     this->screen = new Immoveable("screen.png");
-    this->pitch = new Immoveable("trawka.png");
+    this->pitch = new Immoveable("grass.png", {0, 0}, {1920, 1050});
     this->windowInit();
     this->playerInit();
     this->barricadesInit();
@@ -28,10 +28,11 @@ Game::Game() {
     this->time = new CounterWithText("clock.png", {1700, 0}, {100, 100}, 20);
     this->penaltyArea = new Immoveable({1720, 390},{200, 300});
     this->playerArea = new Immoveable({0, 0},{600, 1080});
-    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "player.png");
+    this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "mokey.png");
     createSign();
     createResults();
     loadMusic();
+    loadTrumpet();
 
 }
 
@@ -82,7 +83,6 @@ void Game::render()
     this->window->clear();
     if(deathscreen == false)
     {
-        loadMusic();
         this->pitch->render(this->window);
         this->player->render(this->window);
 
@@ -116,6 +116,10 @@ void Game::render()
         stopMusic();
         this->screen->render(this->window);
         showResults();
+        if(play){
+        trumpet.play();
+        play = false;
+        }
     }
     if(sfmlEvent.key.code == sf::Keyboard::Enter)
     {
@@ -320,10 +324,19 @@ void Game::loadMusic()
         std::cout << "Asd" << std::endl;
         // Obsługa błędu - nie można załadować pliku
     }
-    music.setLoop(true);
-    music.setVolume(100);
     music.play();
+    music.setLoop(true);
+    music.setVolume(10);
 
+
+}
+
+void Game::loadTrumpet()
+{
+    if (!trumpet.openFromFile("trumpet.wav")) {
+        std::cout << "Asd" << std::endl;
+        // Obsługa błędu - nie można załadować pliku
+    }
 }
 
 void Game::stopMusic()

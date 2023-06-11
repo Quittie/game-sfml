@@ -22,7 +22,7 @@ void Ball::updateKick() {
 
 void Ball::updateWindowBoundsCollision(sf::RenderTarget *target) {
     sf::FloatRect ballBounds = getShape().getGlobalBounds();
-    if (ballBounds.left <= 0.f || ballBounds.left + ballBounds.width >= target->getSize().x) {
+    if (ballBounds.left <= 0.f || ballBounds.left + ballBounds.width  >= target->getSize().x) {
         // Odbicie od lewej lub prawej krawędzi
         _ballVelocity.x = -_ballVelocity.x;
     }
@@ -38,6 +38,7 @@ const sf::CircleShape &Ball::getShape() const {
 }
 
 void Ball::render(sf::RenderTarget *target) {
+
     target->draw(this->_shape);
 }
 
@@ -66,3 +67,4 @@ void Ball::kick(float velocityX, float velocityY) {
 const sf::Vector2f &Ball::getBallVelocity() const {
     return _ballVelocity;
 }
+

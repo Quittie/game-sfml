@@ -16,3 +16,4 @@ void Moveable::speedUp()
 {
     _speed++;
 }
+

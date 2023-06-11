@@ -15,6 +15,7 @@ public:
 
     const sf::Vector2f &getBallVelocity() const;
 
+
 private:
     sf::CircleShape _shape;
     sf::Vector2f _ballVelocity;
