@@ -8,7 +8,7 @@ SoccerChallenge 2k23 is an exciting game where the objective is to score as many
 # Gameplay
 - Control your character using the WSAD keys or arrow keys.
 - Press the spacebar to kick the ball. However, be cautious as each kick consumes one chance, which is replenished upon scoring a goal.
-- Watch out for the goalkeeper! If the ball is touched by the goalkeeper inside the penalty area, you will lose one chance.
+- Watch out for the goalkeeper! 
 - Losing three chances will result in the loss of one heart.
 - Additionally, if you fail to score a goal within 20 seconds, you will also lose one heart.
 
@@ -19,8 +19,6 @@ The game features three difficulty levels. You can progress to the next level by
 The game ends when you lose all your hearts. Challenge yourself, improve your skills, and aim for the highest score possible.
 
 # Instructions
-- Clone the repository to your local machine.
-- Run the game executable or compile and run the source code.
 - Use the WSAD keys or arrow keys to move your character.
 - Press the spacebar to kick the ball.
 - Score as many goals as you can while avoiding the goalkeeper and losing chances.
