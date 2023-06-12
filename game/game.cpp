@@ -31,7 +31,6 @@ Game::Game() {
     this->playerArea = new Immoveable({0, 0},{600, 1080}); //"playerArea" object of type "Immoveable" initialised with given parameters
     this->objectsI.push_back(std::make_unique<Immoveable>(*playerArea));
     this->goalkeeper = new Goalkeeper({1400, 500}, {100, 100}, {}, 60, "goalkeeper.png"); //"goalkeeper" object of type "Goalkeeper" initialised with given parameters
-//    this->objectsM.push_back(std::make_unique<Moveable>(*goalkeeper));
     createSign(); //creates a sign: "Press any key to continue the game. Your final score: "
     createResults(); //creates a sign with current score
     createFinalSign(); //creates a sign which will be shown once the game is finished
