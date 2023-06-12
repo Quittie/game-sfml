@@ -24,7 +24,7 @@ private:
     void moveBarricade(sf::RenderTarget *target);
     bool movingUp;
 
-    const void loadTexture(const std::string &source);
+    void loadTexture(const std::string &source);
 };
 
 #endif // BARRICADEM_H

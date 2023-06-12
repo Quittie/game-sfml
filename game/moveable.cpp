@@ -4,7 +4,7 @@
 #include "moveable.h"
 #include <vector>
 
-Moveable::Moveable(const std::vector<float> &position, const std::vector<float> &size, float speed) {
+Moveable::Moveable(const std::vector<float> &position, const std::vector<float> &size, float speed) { //class constructor
     _startingPosition = position;
     _position = position;
     _size = size;
@@ -12,7 +12,7 @@ Moveable::Moveable(const std::vector<float> &position, const std::vector<float> 
 
 }
 
-void Moveable::speedUp()
+void Moveable::speedUp() //increases the speed of moveable objects
 {
     _speed++;
 }

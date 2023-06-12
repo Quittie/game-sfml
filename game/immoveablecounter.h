@@ -5,7 +5,7 @@
 #include "immoveable.h"
 #include <memory>
 
-class ImmoveableCounter {
+class ImmoveableCounter : public sf::Sprite{
 public:
     ImmoveableCounter(const std::string &source1, const std::vector<float> &position, const std::vector<float> &size,
                       int counter);

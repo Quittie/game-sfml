@@ -1,9 +1,5 @@
 #include "moveable.h"
 #include "game.h"
-#include "barricadem.h"
-#include "player.h"
-
-
 
 int main()
 {

@@ -48,6 +48,7 @@ private:
     Goalkeeper *goalkeeper;
     sf::RenderWindow *window;
     sf::Event sfmlEvent;
+    std::vector<std::unique_ptr<Immoveable>> objectsI;
     std::vector<std::unique_ptr<Barricade>> barricades;
     CounterWithText *goals;
     CounterWithText *time;

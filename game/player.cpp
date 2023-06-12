@@ -1,14 +1,14 @@
 #include "Player.h"
 
 
-Player::Player(const std::vector<float> &position, const std::vector<float> &size, const std::string &source, float speed): Moveable(position, size, speed)
+Player::Player(const std::vector<float> &position, const std::vector<float> &size, const std::string &source, float speed): Moveable(position, size, speed) //class constructor
 {
-    loadTexture(source);
-    loadSprite();
+    loadTexture(source); //loads texture
+    loadSprite(); //loads sprite
 }
 
 
-void Player::animate(sf::Time &elapsed)
+void Player::animate(sf::Time &elapsed) //detects inputs and animates the player
 {
     float dt = elapsed.asSeconds();
     if(dt>0.1&&dt<0.5)
@@ -67,7 +67,7 @@ void Player::animate(sf::Time &elapsed)
     }
 }
 
-void Player::updateInput() {
+void Player::updateInput() { //detects inputs and moves the player
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) || sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
         this->_sprite.move(-this->_speed, 0.0f);
@@ -88,7 +88,7 @@ void Player::updateInput() {
     }
 }
 
-void Player::updateWindowBoundsCollision(sf::RenderTarget *target) {
+void Player::updateWindowBoundsCollision(sf::RenderTarget *target) { //prevents the player from leaving the game window
     if(this->_sprite.getGlobalBounds().left <= 0.f)
         this->_sprite.setPosition(0.f,this->_sprite.getGlobalBounds().top);
 
@@ -102,16 +102,16 @@ void Player::updateWindowBoundsCollision(sf::RenderTarget *target) {
         this->_sprite.setPosition(this->_sprite.getGlobalBounds().left, target->getSize().y - this->_sprite.getGlobalBounds().height);
 }
 
-void Player::update(sf::RenderTarget *target){
+void Player::update(sf::RenderTarget *target){ //updates current state of the player
     this->updateInput();
     this->updateWindowBoundsCollision(target);
 }
 
-void Player::render(sf::RenderTarget* target) {
+void Player::render(sf::RenderTarget* target) { //renders the player
     target ->draw(this->_sprite);
 }
 
-void Player::loadTexture(const std::string& source) {
+void Player::loadTexture(const std::string& source) { //loads texture from a specified file
     if (!this->_texture.loadFromFile(source)) {
         std::cout << "Player not added" << std::endl;
     } else {
@@ -119,7 +119,7 @@ void Player::loadTexture(const std::string& source) {
     }
 }
 
-void Player::loadSprite() {
+void Player::loadSprite() { //loads texture to the sprite and sets its parameters
     sf::IntRect textureRect(460, 0, 450, 590);
 
     _sprite.setTexture(_texture);
@@ -129,17 +129,17 @@ void Player::loadSprite() {
     _sprite.setPosition(this->_position[0], this->_position[1]);
 }
 
-const sf::Sprite &Player::getSprite() const {
+const sf::Sprite &Player::getSprite() const { //sprite getter
     return _sprite;
 }
 
-void Player::reset() {
+void Player::reset() { //resets player's parameters
     _position[0] = _startingPosition[0];
     _position[1] = _startingPosition[1];
     _sprite.setPosition(this->_position[0], this->_position[1]);
 }
 
-void Player::updatePosition(float x, float y) {
+void Player::updatePosition(float x, float y) { //sets new position
     _sprite.setPosition(x,y);
 }
 
