@@ -13,7 +13,7 @@ SoccerChallenge 2k23 is an exciting game where the objective is to score as many
 - Additionally, if you fail to score a goal within 20 seconds, you will also lose one heart.
 
 # Difficulty Levels
-The game features three difficulty levels. You can progress to the next level by scoring 2 goals, and then an additional 3 goals.
+The game features three difficulty levels. You can progress to the next level by scoring 3 goals, and then an additional 2 goals.
 
 # Game Over
 The game ends when you lose all your hearts. Challenge yourself, improve your skills, and aim for the highest score possible.
